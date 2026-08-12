@@ -48,9 +48,9 @@ export const Footer = () => {
         <div>
           <h4 className="text-xs font-black text-emerald-400 uppercase tracking-[0.2em] mb-8">সহায়তা</h4>
           <ul className="flex flex-col gap-4">
-            <li><a href="/terms" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-all font-medium">গোপনীয়তা নীতি</a></li>
-            <li><a href="/terms" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-all font-medium">ব্যবহারের শর্তাবলী</a></li>
-            <li><a href="/terms" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-all font-medium">ডিসক্লেইমার</a></li>
+            <li><Link to="/terms" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-all font-medium">গোপনীয়তা নীতি</Link></li>
+            <li><Link to="/terms" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-all font-medium">ব্যবহারের শর্তাবলী</Link></li>
+            <li><Link to="/terms" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-all font-medium">ডিসক্লেইমার</Link></li>
           </ul>
         </div>
 

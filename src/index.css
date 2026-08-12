@@ -1,13 +1,17 @@
 @import "tailwindcss";
 
+/* ফন্ট অপটিমাইজেশন */
 .arabic-text {
   font-family: 'Amiri', serif;
   direction: rtl;
   font-size: 1.5rem;
   line-height: 1.8;
+  font-display: swap;
 }
+
 :root {
   font-family: 'Hind Siliguri', sans-serif;
+  font-display: swap;
 }
 
 body {
@@ -26,11 +30,24 @@ body {
   background: #059669; /* emerald-600 */
   border-radius: 10px;
 }
+::-webkit-scrollbar-thumb:hover {
+  background: #047857; /* emerald-700 */
+}
 
-/* প্রিন্ট করার সময় অপ্রয়োজনীয় অংশ হাইড করা */
+/* প্রিন্ট করার সময় অপ্রয়োজনীয় অংশ হাইড করা */
 @media print {
   .no-print {
     display: none !important;
+  }
+  
+  body {
+    background: white;
+  }
+  
+  /* প্রিন্টে রঙ বজায় রাখা */
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 }
 
@@ -42,6 +59,7 @@ body {
   }
 }
 
+/* মেশ ব্যাকগ্রাউন্ড */
 .mesh-background {
   position: fixed;
   top: 0;
@@ -56,4 +74,69 @@ body {
     radial-gradient(at 100% 100%, hsla(161, 68%, 90%, 1) 0px, transparent 50%),
     radial-gradient(at 0% 100%, hsla(180, 50%, 94%, 1) 0px, transparent 50%);
   filter: blur(40px);
+  will-change: transform;
+}
+
+/* অ্যানিমেশন */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+/* ফোকাস স্টাইল */
+*:focus-visible {
+  outline: 2px solid #059669;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* সিলেকশন কালার */
+::selection {
+  background-color: #d1fae5; /* emerald-100 */
+  color: #064e3b; /* emerald-900 */
+}
+
+/* Loading skeleton (ভবিষ্যতে ব্যবহারের জন্য) */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.skeleton {
+  animation: shimmer 2s infinite;
+  background: linear-gradient(
+    to right,
+    #f0f0f0 0%,
+    #e0e0e0 20%,
+    #f0f0f0 40%,
+    #f0f0f0 100%
+  );
+  background-size: 1000px 100%;
+}
+
+/* Accessibility improvements */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }

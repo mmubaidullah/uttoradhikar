@@ -1,4 +1,9 @@
 import React, { useState } from "react";
+import { FaFilePdf, FaPrint, FaCalculator, FaExclamationTriangle } from "react-icons/fa";
+import { calculateInheritance, formatAsset, validateInputs } from "./inheritanceCalculations";
+import InheritanceChart from "../components/InheritanceChart";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 const InheritanceCalculator = () => {
   const [waris, setWaris] = useState({
@@ -33,7 +38,10 @@ const InheritanceCalculator = () => {
     shorno: "",
     rupa: "",
   });
+
   const [results, setResults] = useState([]);
+  const [effectiveBase, setEffectiveBase] = useState(24);
+  const [errors, setErrors] = useState([]);
 
   const bnNames = {
     pita: "বাবা",
@@ -65,325 +73,190 @@ const InheritanceCalculator = () => {
     rupa: "রুপা",
   };
 
-  const toBn = (n) =>
-    n ? n.toString().replace(/\d/g, (d) => "০১২৩৪৫৬৭৮৯"[d]) : "০";
+  // ওয়ারিস গ্রুপিং
+  const warisGroups = {
+    parents: {
+      title: "পিতামাতা",
+      icon: "👪",
+      items: ["pita", "dada", "mata", "dadi", "nani"],
+    },
+    spouse: {
+      title: "স্বামী/স্ত্রী",
+      icon: "💍",
+      items: ["shami", "stri"],
+    },
+    children: {
+      title: "সন্তান",
+      icon: "👶",
+      items: ["putro", "konna", "putro_putro", "putro_konna"],
+    },
+    siblings: {
+      title: "ভাই-বোন",
+      icon: "👥",
+      items: [
+        "shohodor_bhai",
+        "shohodor_bon",
+        "boimatreyo_bhai",
+        "boimatreyo_bon",
+        "boipitreyo_bhai",
+        "boipitreyo_bon",
+      ],
+    },
+    distant: {
+      title: "দূরবর্তী",
+      icon: "🌳",
+      items: [
+        "chacha",
+        "boimatreyo_chacha",
+        "shohodor_bhai_putro",
+        "boimatreyo_bhai_putro",
+        "chachat_bhai",
+        "boimatreyo_chachat_bhai",
+      ],
+    },
+  };
 
   const calculate = () => {
-    let res = [];
-    let base = 24;
+    setErrors([]);
 
-    const hasChildren =
-      waris.putro > 0 ||
-      waris.konna > 0 ||
-      waris.putro_putro > 0 ||
-      waris.putro_konna > 0;
-    const hasMaleDescendant = waris.putro > 0 || waris.putro_putro > 0;
-    const totalSiblings =
-      waris.shohodor_bhai +
-      waris.shohodor_bon +
-      waris.boimatreyo_bhai +
-      waris.boimatreyo_bon +
-      waris.boipitreyo_bhai +
-      waris.boipitreyo_bon;
-
-    // --- ১,২. বাবা ও দাদা (নির্ধারিত অংশ) ---
-    if (waris.pita && hasChildren) res.push({ name: "বাবা", n: 1, d: 6 });
-    else if (!waris.pita && waris.dada && hasChildren)
-      res.push({ name: "দাদা", n: 1, d: 6 });
-
-    // --- ৩,৮. বৈপিত্রীয় ভাই/বোন ---
-    if (!hasChildren && !waris.pita && !waris.dada) {
-      let bpbCount = waris.boipitreyo_bhai + waris.boipitreyo_bon;
-      if (bpbCount > 0)
-        res.push({
-          name: "বৈপিত্রীয় ভাই/বোন",
-          n: 1,
-          d: bpbCount === 1 ? 6 : 3,
-        });
+    // ভ্যালিডেশন
+    const validation = validateInputs(waris, assets);
+    if (!validation.isValid) {
+      setErrors(validation.errors);
+      return;
     }
 
-    // --- ৪, ৫. স্বামী বা স্ত্রী ---
-    if (waris.shami) res.push({ name: "স্বামী", n: 1, d: hasChildren ? 4 : 2 });
-    else if (waris.stri)
-      res.push({ name: "স্ত্রী", n: 1, d: hasChildren ? 8 : 4 });
+    // মূল হিসাব
+    const { results: calculatedResults, effectiveBase: base } =
+      calculateInheritance(waris);
 
-    // --- ৬,৭. কন্যা ও নাতনি ---
-    if (waris.putro === 0) {
-      if (waris.konna > 0)
-        res.push({
-          name: "মেয়ে",
-          n: waris.konna === 1 ? 1 : 2,
-          d: waris.konna === 1 ? 2 : 3,
-        });
-      if (waris.putro_konna > 0 && waris.putro_putro === 0) {
-        if (waris.konna === 0)
-          res.push({
-            name: "পুত্রের মেয়ে",
-            n: waris.putro_konna === 1 ? 1 : 2,
-            d: waris.putro_konna === 1 ? 2 : 3,
-          });
-        else if (waris.konna === 1)
-          res.push({ name: "পুত্রের মেয়ে", n: 1, d: 6 });
-      }
-    }
-
-    // ৯.--- সহোদর বোন (জাবিল ফুরুজ হিসেবে তখনই পাবে যখন কোনো সন্তান বা নাতনি নেই) ---
-    if (
-      !hasChildren &&
-      !hasMaleDescendant &&
-      !waris.pita &&
-      !waris.dada &&
-      waris.shohodor_bhai === 0
-    ) {
-      if (waris.shohodor_bon > 0) {
-        res.push({
-          name: "সহোদর বোন",
-          n: waris.shohodor_bon === 1 ? 1 : 2,
-          d: waris.shohodor_bon === 1 ? 2 : 3,
-        });
-      }
-    }
-
-    // ১০. --- বৈমাত্রীয় বোন (জাবিল ফুরুজ হিসেবে) ---
-    if (
-      !hasMaleDescendant &&
-      !waris.pita &&
-      !waris.dada &&
-      waris.boimatreyo_bhai === 0 &&
-      waris.shohodor_bhai === 0 &&
-      waris.konna === 0 &&
-      waris.putro_konna === 0
-    ) {
-      // যদি কোনো সহোদর বোন না থাকে
-      if (waris.shohodor_bon === 0) {
-        if (waris.boimatreyo_bon > 0) {
-          res.push({
-            name: "বৈমাত্রীয় বোন",
-            n: waris.boimatreyo_bon === 1 ? 1 : 2,
-            d: waris.boimatreyo_bon === 1 ? 2 : 3,
-          });
-        }
-      }
-
-      // যদি একজন মাত্র সহোদর বোন থাকে (সে ১/২ পাওয়ার পর এরা অবশিষ্ট ১/৬ পাবে)
-      else if (waris.shohodor_bon === 1 && waris.boimatreyo_bon > 0) {
-        res.push({
-          name: "বৈমাত্রীয় বোন",
-          n: 1,
-          d: 6,
-        });
-      }
-      // নোট: যদি ২ বা তার বেশি সহোদর বোন থাকে, তবে বৈমাত্রীয় বোন বঞ্চিত হয় (যদি না আসাবা হয়)
-    }
-
-    // --- মা ---
-    if (waris.mata) {
-      let n = 1,
-        d = 6;
-      let label = "";
-
-      if (!hasChildren && totalSiblings < 2) {
-        if (waris.pita && (waris.shami || waris.stri)) {
-          n = 1;
-          d = waris.shami ? 6 : 4;
-          label = " (অবশিষ্টাংশের 1/3)";
-        } else {
-          n = 1;
-          d = 3;
-        }
-      }
-
-      res.push({
-        name: "মা",
-        n,
-        d,
-        extraLabel: label,
-      });
-    }
-
-    // --- নানি ---
-    if (waris.nani && !waris.mata) {
-      if (waris.dadi && !waris.pita) {
-        // দাদিও আছে এবং বাবা নেই, তাই দুজনে মিলে ১/৬ পাবে (১/১২ করে)
-        res.push({ name: "নানি", n: 0.5, d: 6 });
-      } else {
-        // দাদি নেই অথবা দাদি বঞ্চিত, তাই নানি একাই ১/৬ পাবে
-        res.push({ name: "নানি", n: 1, d: 6 });
-      }
-    }
-
-    // --- দাদি ---
-    if (waris.dadi && !waris.mata && !waris.pita) {
-      if (waris.nani) {
-        // নানিও আছে, তাই দুজনে মিলে ১/৬ পাবে (১/১২ করে)
-        res.push({ name: "দাদি", n: 0.5, d: 6 });
-      } else {
-        // নানি নেই, তাই দাদি একাই ১/৬ পাবে
-        res.push({ name: "দাদি", n: 1, d: 6 });
-      }
-    }
-
-    // --- ৬. আসাবা (অবশিষ্টাংশ ভোগী) লজিক ---
-    let currentFixedNumerator = res.reduce(
-      (acc, s) => acc + (base / s.d) * s.n,
-      0
-    );
-    let asabaList = [];
-
-    // ১. প্রথমে ছেলে বা মেয়ের আসাবা চেক
-    if (waris.putro > 0) {
-      asabaList.push({ name: "ছেলে", w: 2, c: waris.putro });
-      if (waris.konna > 0) asabaList.push({ name: "মেয়ে", w: 1, c: waris.konna });
-    } 
-    // ২. দ্বিতীয়ত নাতি বা নাতনির আসাবা চেক
-    else if (waris.putro_putro > 0) {
-      asabaList.push({ name: "পুত্রের পুত্র", w: 2, c: waris.putro_putro });
-      if (waris.putro_konna > 0) asabaList.push({ name: "পুত্রের মেয়ে", w: 1, c: waris.putro_konna });
-    } 
-    // ৩. তৃতীয়ত বাবা (যদি আসাবা হিসেবে কিছু পায়)
-    else if (waris.pita) {
-      asabaList.push({ name: "বাবা", w: 1, c: 1 });
-    } 
-    // ৪. চতুর্থত দাদা
-    else if (waris.dada) {
-      asabaList.push({ name: "দাদা", w: 1, c: 1 });
-    } 
-    
-    // ৫. এইখানে আপনার নতুন কোডটি বসবে (কন্যা ও বোন একসাথে থাকলে)
-    else if (
-      (waris.konna > 0 || waris.putro_konna > 0) &&
-      waris.shohodor_bon > 0 &&
-      waris.shohodor_bhai === 0 &&
-      waris.putro === 0 && 
-      waris.putro_putro === 0
-    ) {
-      // কন্যাদের সাথে বোন আসাবা হিসেবে অবশিষ্টাংশ পাবে
-      asabaList.push({ name: "সহোদর বোন", w: 1, c: waris.shohodor_bon });
-    } 
-    
-    // ৬. এরপর ভাই ও বোনের সাধারণ আসাবা লজিক
-    else if (!waris.pita && !waris.dada && !hasMaleDescendant) {
-      if (waris.shohodor_bhai > 0) {
-        asabaList.push(
-          { name: "সহোদর ভাই", w: 2, c: waris.shohodor_bhai },
-          { name: "সহোদর বোন", w: 1, c: waris.shohodor_bon }
-        );
-      } else if (waris.boimatreyo_bhai > 0) {
-        asabaList.push(
-          { name: "বৈমাত্রীয় ভাই", w: 2, c: waris.boimatreyo_bhai },
-          { name: "বৈমাত্রীয় বোন", w: 1, c: waris.boimatreyo_bon }
-        );
-      } else {
-        const chain = [
-          { k: "shohodor_bhai_putro", n: "সহোদর ভাইয়ের পুত্র" },
-          { k: "boimatreyo_bhai_putro", n: "বৈমাত্রীয় ভাইয়ের পুত্র" },
-          { k: "chacha", n: "চাচা" },
-          { k: "boimatreyo_chacha", n: "বৈমাত্রীয় চাচা" },
-          { k: "chachat_bhai", n: "চাচাত ভাই" },
-          { k: "boimatreyo_chachat_bhai", n: "বৈমাত্রীয় চাচাত ভাই" },
-        ];
-        for (let item of chain) {
-          if (waris[item.k] > 0) {
-            asabaList.push({ name: item.n, w: 1, c: waris[item.k] });
-            break;
-          }
-        }
-      }
-    }
-
-    // --- ৭. আউল ও রাদ্দ অ্যাডজাস্টমেন্ট ---
-    let effectiveBase =
-      currentFixedNumerator > base ? currentFixedNumerator : base;
-    let remaining =
-      asabaList.length > 0 ? effectiveBase - currentFixedNumerator : 0;
-
-    if (asabaList.length === 0 && currentFixedNumerator < base) {
-      let raddHolders = res.filter(
-        (s) => s.name !== "স্বামী" && s.name !== "স্ত্রী"
-      );
-      if (raddHolders.length > 0) {
-        let raddTotalNum = raddHolders.reduce(
-          (acc, s) => acc + (base / s.d) * s.n,
-          0
-        );
-        let surplus = base - currentFixedNumerator;
-        res = res.map((s) => {
-          if (s.name === "স্বামী" || s.name === "স্ত্রী") return s;
-          return {
-            ...s,
-            extra: (((base / s.d) * s.n) / raddTotalNum) * surplus,
-          };
-        });
-      }
-    }
-
-    let finalRes = res.map((s) => ({
-      name: s.name,
-      // এখানে extraLabel থাকলে তা যোগ হবে
-      share:
-        s.n + "/" + s.d + (s.extraLabel || "") + (s.extra ? " (রাদ্দ সহ)" : ""),
-      num: (base / s.d) * s.n + (s.extra || 0),
+    // সম্পদ ফরম্যাট
+    const formattedResults = calculatedResults.map((r) => ({
+      ...r,
+      taka: formatAsset(assets.taka, r.num, base),
+      jomi: formatAsset(assets.jomi, r.num, base),
+      shorno: formatAsset(assets.shorno, r.num, base),
+      rupa: formatAsset(assets.rupa, r.num, base),
     }));
 
-    // ***********
-    // --- ৮. আসাবা বন্টন ও ডুপ্লিকেট রোধ (চূড়ান্ত সমাধান) ---
-    if (asabaList.length > 0) {
-      // মোট ওয়েট বের করা (ভাই ২, বোন ১)
-      let totalW = asabaList.reduce((acc, a) => acc + a.w * a.c, 0);
-
-      asabaList.forEach((a) => {
-        if (a.c > 0) {
-          // ব্যক্তিগত অংশ ক্যালকুলেশন
-          let asabaNum = (remaining / totalW) * a.w;
-
-          // ১ নম্বর সমস্যা সমাধান: চেক করুন এই নাম কি আগে থেকেই তালিকায় আছে?
-          let existingIdx = finalRes.findIndex((r) => r.name === a.name);
-
-          if (existingIdx !== -1) {
-            // যদি আগে থেকে জাবিল ফুরুজ হিসেবে থাকে, তার সাথে আসাবা অংশ যোগ হবে
-            finalRes[existingIdx].num += asabaNum;
-            // ২ নম্বর সমস্যা সমাধান: শুধু তখনই লেখা আসবে যখন সে আসাবা থেকে কিছু পাবে
-            if (asabaNum > 0.001) {
-              finalRes[existingIdx].share += " + অবশিষ্ট (আসাবা)";
-            }
-          } else if (asabaNum > 0.001) {
-            // ৩ নম্বর সমস্যা সমাধান: নতুন করে তালিকাভুক্ত হবে সঠিক লেবেল সহ
-            finalRes.push({
-              name: a.name,
-              share:
-                currentFixedNumerator === 0
-                  ? "সম্পূর্ণ (আসাবা)"
-                  : "অবশিষ্ট (আসাবা)",
-              num: asabaNum,
-            });
-          }
-        }
-      });
-    }
-
-    const format = (val, shareNum) => {
-      let v = parseFloat(val);
-      if (!v) return "০.০০";
-      return toBn(((shareNum / effectiveBase) * v).toFixed(2));
-    };
-
-    setResults(
-      finalRes.map((r) => ({
-        ...r,
-        taka: format(assets.taka, r.num),
-        jomi: format(assets.jomi, r.num),
-        shorno: format(assets.shorno, r.num),
-        rupa: format(assets.rupa, r.num),
-      }))
-    );
+    setResults(formattedResults);
+    setEffectiveBase(base);
   };
 
   const hasValue = (key) => assets[key] && parseFloat(assets[key]) > 0;
 
+  // PDF ডাউনলোড
+  const downloadPDF = () => {
+    const doc = new jsPDF();
+
+    // শিরোনাম
+    doc.setFontSize(18);
+    doc.text("উত্তরাধিকার বন্টননামা", 105, 20, { align: "center" });
+
+    doc.setFontSize(10);
+    doc.text(`তারিখ: ${new Date().toLocaleDateString("bn-BD")}`, 105, 30, {
+      align: "center",
+    });
+
+    // টেবিল তৈরি
+    const tableData = results.map((r) => {
+      const row = [r.name, r.share];
+      if (hasValue("taka")) row.push(r.taka + " ৳");
+      if (hasValue("jomi")) row.push(r.jomi + " শ.");
+      if (hasValue("shorno")) row.push(r.shorno + " ভরি");
+      if (hasValue("rupa")) row.push(r.rupa + " ভরি");
+      return row;
+    });
+
+    const columns = ["ওয়ারিস", "অংশ"];
+    if (hasValue("taka")) columns.push("টাকা");
+    if (hasValue("jomi")) columns.push("জমি");
+    if (hasValue("shorno")) columns.push("স্বর্ণ");
+    if (hasValue("rupa")) columns.push("রুপা");
+
+    doc.autoTable({
+      head: [columns],
+      body: tableData,
+      startY: 40,
+      styles: { font: "helvetica", fontSize: 10 },
+      headStyles: { fillColor: [5, 150, 105] },
+    });
+
+    // ফুটনোট
+    const finalY = doc.lastAutoTable.finalY || 40;
+    doc.setFontSize(8);
+    doc.text(
+      "এই হিসাবটি হানাফি মাযহাবের ফারায়েজ আইন অনুযায়ী তৈরি।",
+      105,
+      finalY + 10,
+      { align: "center" }
+    );
+    doc.text(
+      "আইনি বা পারিবারিক ব্যবহারের আগে বিশেষজ্ঞের পরামর্শ নিন।",
+      105,
+      finalY + 15,
+      { align: "center" }
+    );
+
+    doc.save("বন্টননামা.pdf");
+  };
+
+  // প্রিন্ট
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
     <div className="min-h-screen bg-[#F8FAFC] p-4 md:p-8">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-6xl mx-auto">
+        {/* হেডার সেকশন */}
+        <div className="bg-gradient-to-br from-emerald-800 to-teal-900 text-white p-8 md:p-12 rounded-[2rem] shadow-xl mb-8">
+          <div className="flex items-center gap-4 mb-4">
+            <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+              <FaCalculator size={28} className="text-emerald-300" />
+            </div>
+            <div>
+              <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+                উত্তরাধিকার হিসাব করুন
+              </h1>
+              <p className="text-emerald-100/80 text-sm mt-1">
+                হানাফি মাযহাবের ফারায়েজ আইন অনুযায়ী সম্পদ বন্টন
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-white/10 backdrop-blur-sm p-4 rounded-xl border border-white/20 mt-6">
+            <p className="text-sm text-emerald-50 leading-relaxed">
+              <strong>নির্দেশনা:</strong> প্রথমে মৃত ব্যক্তির সম্পদের পরিমাণ লিখুন।
+              তারপর জীবিত ওয়ারিশদের নির্বাচন করুন। সবশেষে "বন্টননামা তৈরি করুন"
+              বাটনে ক্লিক করুন।
+            </p>
+          </div>
+        </div>
+
+        {/* এরর মেসেজ */}
+        {errors.length > 0 && (
+          <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-xl mb-6 animate-in slide-in-from-top-4">
+            <div className="flex items-start gap-3">
+              <FaExclamationTriangle className="text-red-500 mt-1" />
+              <div>
+                <h3 className="font-bold text-red-800 mb-2">সমস্যা পাওয়া গেছে:</h3>
+                <ul className="list-disc list-inside text-red-700 text-sm space-y-1">
+                  {errors.map((error, i) => (
+                    <li key={i}>{error}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* সম্পদ ইনপুট */}
         <div className="bg-white p-6 rounded-2xl shadow-sm mb-8 border border-emerald-100">
+          <h2 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+            <span className="w-2 h-8 bg-emerald-500 rounded-full"></span>
+            মৃত ব্যক্তির মোট সম্পদ
+          </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {["taka", "jomi", "shorno", "rupa"].map((key) => (
               <div key={key} className="bg-gray-50 p-3 rounded-xl border">
@@ -392,11 +265,13 @@ const InheritanceCalculator = () => {
                 </label>
                 <input
                   type="number"
+                  min="0"
+                  step="0.01"
                   value={assets[key]}
                   onChange={(e) =>
                     setAssets({ ...assets, [key]: e.target.value })
                   }
-                  className="w-full bg-transparent font-bold outline-none"
+                  className="w-full bg-transparent font-bold outline-none text-gray-800"
                   placeholder="০"
                 />
               </div>
@@ -404,66 +279,102 @@ const InheritanceCalculator = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-          {Object.keys(waris).map((key) => {
-            const isActive =
-              typeof waris[key] === "boolean" ? waris[key] : waris[key] > 0;
-            return (
-              <div
-                key={key}
-                onClick={() => {
-                  if (key === "shami" && !waris.shami)
-                    setWaris((p) => ({ ...p, shami: true, stri: false }));
-                  else if (key === "stri" && !waris.stri)
-                    setWaris((p) => ({ ...p, stri: true, shami: false }));
-                  else
-                    setWaris((p) => ({
-                      ...p,
-                      [key]:
-                        typeof p[key] === "boolean"
-                          ? !p[key]
-                          : p[key] > 0
-                          ? 0
-                          : 1,
-                    }));
-                }}
-                className={`p-3 h-[50px] rounded-xl border flex items-center justify-between cursor-pointer transition-all ${
-                  isActive
-                    ? "bg-emerald-50 border-emerald-600 shadow-sm"
-                    : "bg-white border-gray-100"
-                }`}
-              >
-                <span className="text-[14px] font-bold text-emerald-900 leading-tight">
-                  {bnNames[key]}
-                </span>
-                {typeof waris[key] === "number" && isActive && (
-                  <input
-                    type="number"
-                    value={waris[key]}
-                    onClick={(e) => e.stopPropagation()}
-                    onChange={(e) =>
-                      setWaris({
-                        ...waris,
-                        [key]: parseInt(e.target.value) || 0,
-                      })
-                    }
-                    className="w-10 border-0 bg-white/50 rounded text-center text-xs font-bold outline-none"
-                  />
-                )}
+        {/* ওয়ারিশ নির্বাচন - গ্রুপিং সহ */}
+        <div className="space-y-6 mb-8">
+          {Object.entries(warisGroups).map(([groupKey, group]) => (
+            <div
+              key={groupKey}
+              className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100"
+            >
+              <h3 className="text-md font-bold text-gray-700 mb-4 flex items-center gap-2">
+                <span className="text-2xl">{group.icon}</span>
+                {group.title}
+              </h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                {group.items.map((key) => {
+                  const isActive =
+                    typeof waris[key] === "boolean"
+                      ? waris[key]
+                      : waris[key] > 0;
+                  return (
+                    <div
+                      key={key}
+                      onClick={() => {
+                        if (key === "shami" && !waris.shami)
+                          setWaris((p) => ({ ...p, shami: true, stri: false }));
+                        else if (key === "stri" && !waris.stri)
+                          setWaris((p) => ({ ...p, stri: true, shami: false }));
+                        else
+                          setWaris((p) => ({
+                            ...p,
+                            [key]:
+                              typeof p[key] === "boolean"
+                                ? !p[key]
+                                : p[key] > 0
+                                ? 0
+                                : 1,
+                          }));
+                      }}
+                      className={`p-3 h-[50px] rounded-xl border flex items-center justify-between cursor-pointer transition-all ${
+                        isActive
+                          ? "bg-emerald-50 border-emerald-600 shadow-sm"
+                          : "bg-white border-gray-200 hover:border-emerald-300"
+                      }`}
+                    >
+                      <span className="text-[14px] font-bold text-emerald-900 leading-tight">
+                        {bnNames[key]}
+                      </span>
+                      {typeof waris[key] === "number" && isActive && (
+                        <input
+                          type="number"
+                          min="1"
+                          value={waris[key]}
+                          onClick={(e) => e.stopPropagation()}
+                          onChange={(e) =>
+                            setWaris({
+                              ...waris,
+                              [key]: parseInt(e.target.value) || 0,
+                            })
+                          }
+                          className="w-10 border-0 bg-white/50 rounded text-center text-xs font-bold outline-none"
+                        />
+                      )}
+                    </div>
+                  );
+                })}
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
 
+        {/* হিসাব বাটন */}
         <button
           onClick={calculate}
-          className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-4 rounded-2xl font-bold shadow-lg transition-all active:scale-[0.98]"
+          className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-4 rounded-2xl font-bold shadow-lg transition-all active:scale-[0.98] flex items-center justify-center gap-3"
         >
+          <FaCalculator />
           বন্টননামা তৈরি করুন
         </button>
 
+        {/* রেজাল্ট টেবিল */}
         {results.length > 0 && (
           <div className="mt-10 bg-white p-6 rounded-3xl shadow-xl border border-gray-100">
+            {/* প্রিন্ট/পিডিএফ বাটন */}
+            <div className="flex gap-3 mb-6 no-print">
+              <button
+                onClick={downloadPDF}
+                className="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl font-bold transition-all flex items-center justify-center gap-2"
+              >
+                <FaFilePdf /> PDF ডাউনলোড
+              </button>
+              <button
+                onClick={handlePrint}
+                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-bold transition-all flex items-center justify-center gap-2"
+              >
+                <FaPrint /> প্রিন্ট করুন
+              </button>
+            </div>
+
             <div className="overflow-x-auto">
               <table className="w-full text-left border-separate border-spacing-y-2">
                 <thead>
@@ -472,9 +383,7 @@ const InheritanceCalculator = () => {
                     <th className="px-4 pb-2">অংশ</th>
                     {hasValue("taka") && <th className="px-4 pb-2">টাকা</th>}
                     {hasValue("jomi") && <th className="px-4 pb-2">জমি</th>}
-                    {hasValue("shorno") && (
-                      <th className="px-4 pb-2">স্বর্ণ</th>
-                    )}
+                    {hasValue("shorno") && <th className="px-4 pb-2">স্বর্ণ</th>}
                     {hasValue("rupa") && <th className="px-4 pb-2">রুপা</th>}
                   </tr>
                 </thead>
@@ -514,6 +423,13 @@ const InheritanceCalculator = () => {
                   ))}
                 </tbody>
               </table>
+
+              {/* Chart Visualization */}
+              <div className="mt-8">
+                <InheritanceChart results={results} />
+              </div>
+
+              {/* ডিসক্লেইমার */}
               <div className="max-w-4xl mx-auto mt-12 p-6 bg-emerald-50 border-t-2 border-emerald-200 rounded-3xl">
                 <div className="flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
                   <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-emerald-600 shadow-sm border border-emerald-100 flex-shrink-0">
@@ -537,10 +453,10 @@ const InheritanceCalculator = () => {
                     </h4>
                     <p className="text-justify text-sm text-emerald-800/70 leading-relaxed">
                       হানাফি ফারায়েজ আইনের গাণিতিক মূলনীতিতে তৈরি এই
-                      ক্যালকুলেটরটি আপনাকে নির্ভুল ধারণা দিতে সক্ষম। তবে
-                      পারিবারিক বা আইনি প্রয়োজনে ব্যবহারের আগে আমরা অভিজ্ঞ মুফতি
-                      বা বিশেষজ্ঞের মাধ্যমে হিসাবটি একবার যাচাই করে নেওয়ার
-                      পরামর্শ দিই।
+                      ক্যালকুলেটরটি আপনাকে নির্ভুল ধারণা দিতে সক্ষম। তবে পারিবারিক
+                      বা আইনি প্রয়োজনে ব্যবহারের আগে আমরা অভিজ্ঞ মুফতি বা
+                      বিশেষজ্ঞের মাধ্যমে হিসাবটি একবার যাচাই করে নেওয়ার পরামর্শ
+                      দিই।
                     </p>
                   </div>
                 </div>

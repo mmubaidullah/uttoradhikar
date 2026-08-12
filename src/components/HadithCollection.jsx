@@ -1,0 +1,292 @@
+import React, { useState } from 'react';
+import { FaBookmark, FaSearch, FaFilter, FaStar } from 'react-icons/fa';
+
+const HadithCollection = () => {
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const hadiths = [
+    {
+      id: 1,
+      title: 'ফারায়েজ শিক্ষার গুরুত্ব',
+      arabic: 'تَعَلَّمُوا الْفَرَائِضَ وَعَلِّمُوهَا النَّاسَ فَإِنَّهَا نِصْفُ الْعِلْمِ وَهُوَ يُنْسَى وَهُوَ أَوَّلُ شَيْءٍ يُنْتَزَعُ مِنْ أُمَّتِي',
+      bangla: 'তোমরা ফারায়েজ (উত্তরাধিকার বিধান) শিখো এবং মানুষকে শেখাও। কারণ এটি জ্ঞানের অর্ধেক এবং এটি ভুলে যাওয়া হবে এবং এটিই প্রথম জিনিস যা আমার উম্মত থেকে উঠিয়ে নেওয়া হবে।',
+      source: 'সুনানে ইবনে মাজাহ: ২৭১৯, সুনানে তিরমিযী: ২০৯৬',
+      grade: 'হাসান',
+      narrator: 'আবু হুরাইরা (রাঃ)',
+      explanation: 'এই হাদিস থেকে বোঝা যায় ফারায়েজ শিক্ষা করা কতটা গুরুত্বপূর্ণ। রাসূলুল্লাহ (ﷺ) এটিকে জ্ঞানের অর্ধেক বলেছেন এবং সতর্ক করেছেন যে ভবিষ্যতে এই জ্ঞান হারিয়ে যাবে।',
+      masala: ['ফারায়েজ শিক্ষা ফরজে কিফায়া', 'সমাজে বিশেষজ্ঞ থাকা আবশ্যক'],
+      category: 'গুরুত্ব',
+      importance: 5
+    },
+    {
+      id: 2,
+      title: 'আসাবা - অবশিষ্টাংশ ভোগী',
+      arabic: 'أَلْحِقُوا الْفَرَائِضَ بِأَهْلِهَا فَمَا بَقِيَ فَهُوَ لأَوْلَى رَجُلٍ ذَكَرٍ',
+      bangla: 'নির্ধারিত অংশগুলো তাদের হকদারদের দিয়ে দাও। এরপর যা অবশিষ্ট থাকে তা সবচেয়ে নিকটবর্তী পুরুষ আত্মীয়ের জন্য।',
+      source: 'সহিহ বুখারী: ৬৭৩২, সহিহ মুসলিম: ১৬১৫',
+      grade: 'সহিহ',
+      narrator: 'ইবনে আব্বাস (রাঃ)',
+      explanation: 'এটি আসাবা (অবশিষ্টাংশ ভোগী) সিস্টেমের মূল হাদিস। প্রথমে জাবিল ফুরুজ (নির্ধারিত অংশীদার) তাদের অংশ পাবে, তারপর যা বাকি থাকবে তা আসাবা পাবে। আসাবা হলো পুরুষ আত্মীয় যারা নিকটতম থেকে দূরবর্তী ক্রম অনুসারে অগ্রাধিকার পায়।',
+      masala: ['পুত্র প্রথম আসাবা', 'বাবা দ্বিতীয় আসাবা', 'দাদা তৃতীয় আসাবা', 'ভাই চতুর্থ আসাবা'],
+      category: 'আসাবা',
+      importance: 5
+    },
+    {
+      id: 3,
+      title: 'মেয়েদের সাথে বোনদের আসাবা',
+      arabic: 'اجْعَلُوا الأَخَوَاتِ مَعَ الْبَنَاتِ عَصَبَةً',
+      bangla: 'কন্যাদের সাথে বোনদের আসাবা (অবশিষ্টাংশভোগী) বানাও।',
+      source: 'সহিহ বুখারী: ৬৭৩৬',
+      grade: 'সহিহ',
+      narrator: 'ইবনে মাসউদ (রাঃ)',
+      explanation: 'সাধারণত বোনেরা জাবিল ফুরুজ (নির্ধারিত অংশ) পায়। কিন্তু যখন কন্যা (মেয়ে) থাকে এবং কোনো ছেলে নেই, তখন বোনেরা আসাবা হয়ে যায় এবং অবশিষ্ট সম্পদ পায়। এটি একটি বিশেষ নিয়ম যা শুধু এই পরিস্থিতিতে প্রযোজ্য।',
+      masala: ['মেয়ে + সহোদর বোন = বোন আসাবা হয়', 'এতে বোন নির্ধারিত অংশ পায় না', 'অবশিষ্ট সব পায়'],
+      category: 'আসাবা',
+      importance: 4
+    },
+    {
+      id: 4,
+      title: 'হত্যাকারী বঞ্চিত',
+      arabic: 'لَيْسَ لِلْقَاتِلِ مِيرَاثٌ',
+      bangla: 'হত্যাকারীর জন্য উত্তরাধিকার নেই।',
+      source: 'সুনানে আবু দাউদ: ২৮৭৫, সুনানে নাসাঈ: ৪৮৬৯',
+      grade: 'সহিহ',
+      narrator: 'আবু হুরাইরা (রাঃ)',
+      explanation: 'যে ব্যক্তি তার আত্মীয়কে হত্যা করে, সে উক্ত ব্যক্তির সম্পদের ওয়ারিশ হতে পারবে না - এমনকি সে নিকটাত্মীয় হলেও। এটি একটি দণ্ডমূলক বিধান যাতে মানুষ দ্রুত সম্পদ পাওয়ার জন্য হত্যা না করে। ইচ্ছাকৃত বা ভুলবশত উভয় ধরনের হত্যা এতে অন্তর্ভুক্ত (হানাফি মাযহাব অনুযায়ী)।',
+      masala: ['ইচ্ছাকৃত হত্যা - বঞ্চিত', 'অনিচ্ছাকৃত হত্যা - বঞ্চিত (হানাফি)', 'আত্মরক্ষায় হত্যা - মতভেদ আছে'],
+      category: 'বঞ্চনা',
+      importance: 5
+    },
+    {
+      id: 5,
+      title: 'ধর্ম ভিন্নতায় বঞ্চনা',
+      arabic: 'لَا يَرِثُ الْمُسْلِمُ الْكَافِرَ وَلَا الْكَافِرُ الْمُسْلِمَ',
+      bangla: 'মুসলিম কাফেরের ওয়ারিশ হয় না এবং কাফের মুসলিমের ওয়ারিশ হয় না।',
+      source: 'সহিহ বুখারী: ৬৭৬৪, সহিহ মুসলিম: ১৬১৪',
+      grade: 'সহিহ',
+      narrator: 'উসামা ইবনে যায়েদ (রাঃ)',
+      explanation: 'ইসলামে উত্তরাধিকার পাওয়ার জন্য উভয়ের ধর্ম একই হতে হবে। মুসলিম পিতা অমুসলিম সন্তানের সম্পদে ওয়ারিশ হবে না, এবং অমুসলিম পিতা মুসলিম সন্তানের সম্পদে ওয়ারিশ হবে না। তবে অসিয়ত (Will) এর মাধ্যমে ১/৩ পর্যন্ত দেওয়া যায়।',
+      masala: ['মুসলিম→অমুসলিম: ওয়ারিশ নয়', 'অমুসলিম→মুসলিম: ওয়ারিশ নয়', 'অসিয়ত করা যায় (১/৩ পর্যন্ত)'],
+      category: 'বঞ্চনা',
+      importance: 5
+    },
+    {
+      id: 6,
+      title: 'ঋণ পরিশোধ প্রথম',
+      arabic: 'لَا وَصِيَّةَ لِوَارِثٍ إِلَّا بِإِذْنِ الْوَرَثَةِ',
+      bangla: 'ওয়ারিশদের অনুমতি ছাড়া ওয়ারিশদের জন্য অসিয়ত নেই।',
+      source: 'সুনানে তিরমিযী: ২১২০, সুনানে ইবনে মাজাহ: ২৭১৩',
+      grade: 'হাসান',
+      narrator: 'আমর ইবনুল আস (রাঃ)',
+      explanation: 'মৃত ব্যক্তির সম্পদ থেকে প্রথমে তার দাফন-কাফনের খরচ, তারপর ঋণ পরিশোধ করতে হবে। এরপর অসিয়ত (যদি থাকে) পূরণ করতে হবে - তবে তা মোট সম্পদের ১/৩-এর বেশি হতে পারবে না। সবশেষে অবশিষ্ট সম্পদ ওয়ারিশদের মধ্যে বন্টন হবে। ওয়ারিশদের জন্য অসিয়ত করা নিষিদ্ধ, কারণ আল্লাহ তাদের অংশ নির্ধারণ করে দিয়েছেন।',
+      masala: ['১. দাফন খরচ', '২. ঋণ পরিশোধ', '৩. অসিয়ত (১/৩ পর্যন্ত)', '৪. ওয়ারিশদের অংশ'],
+      category: 'পূর্বশর্ত',
+      importance: 5
+    },
+    {
+      id: 7,
+      title: 'অসিয়ত সীমা',
+      arabic: 'الثُّلُثُ وَالثُّلُثُ كَثِيرٌ',
+      bangla: 'এক তৃতীয়াংশ, এবং এক তৃতীয়াংশও অনেক।',
+      source: 'সহিহ বুখারী: ২৭৪৪, সহিহ মুসলিম: ১৬২৮',
+      grade: 'সহিহ',
+      narrator: 'সাদ ইবনে আবি ওয়াক্কাস (রাঃ)',
+      explanation: 'রাসূলুল্লাহ (ﷺ) সাদ (রাঃ)-কে বলেছিলেন যে অসিয়ত সর্বোচ্চ ১/৩ পর্যন্ত করা উচিত এবং তাও অনেক। এর বেশি করলে ওয়ারিশদের অধিকার ক্ষুণ্ণ হয়। ১/৩-এর বেশি অসিয়ত শুধুমাত্র ওয়ারিশদের সম্মতিতে কার্যকর হবে।',
+      masala: ['সর্বোচ্চ সীমা: ১/৩', '১/৩-এর বেশি: ওয়ারিশদের সম্মতি লাগবে', 'কম করা উত্তম'],
+      category: 'অসিয়ত',
+      importance: 4
+    },
+    {
+      id: 8,
+      title: 'পুত্রের অংশ দ্বিগুণ',
+      arabic: 'لِلذَّكَرِ مِثْلُ حَظِّ الْأُنْثَيَيْنِ',
+      bangla: 'পুরুষের জন্য দুই নারীর অংশের সমান।',
+      source: 'সূরা নিসা: ১১ (কুরআন)',
+      grade: 'কুরআন',
+      narrator: 'আল্লাহর বাণী',
+      explanation: 'এটি কুরআনের আয়াত যা হাদিসেও বর্ণিত হয়েছে। পুত্র কন্যার দ্বিগুণ পায় কারণ ইসলামে পুরুষের উপর পরিবার ভরণপোষণ, মোহরানা দেওয়া ও যুদ্ধে অংশগ্রহণের দায়িত্ব আছে। নারী তার সম্পদ সম্পূর্ণ নিজের জন্য রাখতে পারে, কাউকে দিতে বাধ্য নয়। তাই আপাত অসমতা আসলে ভারসাম্যপূর্ণ।',
+      masala: ['ছেলে-মেয়ে একসাথে: ২:১', 'শুধু মেয়ে: তাদের নির্ধারিত অংশ', 'শুধু ছেলে: পুরো সম্পদ'],
+      category: 'নির্ধারিত অংশ',
+      importance: 5
+    },
+    {
+      id: 9,
+      title: 'মায়ের সম্মান',
+      arabic: 'إِنَّ اللَّهَ يُوصِيكُمْ بِأُمَّهَاتِكُمْ',
+      bangla: 'নিশ্চয়ই আল্লাহ তোমাদের মায়েদের ব্যাপারে তোমাদের উপদেশ দিচ্ছেন।',
+      source: 'সহিহ বুখারী: ৫৯৭১',
+      grade: 'সহিহ',
+      narrator: 'আবু হুরাইরা (রাঃ)',
+      explanation: 'মা হলো সবচেয়ে সম্মানিত ব্যক্তি এবং ফারায়েজেও তার বিশেষ স্থান আছে। মা সবসময় নির্ধারিত অংশ পায় - বঞ্চিত হয় না। সন্তান থাকলে ১/৬, না থাকলে ১/৩ (কিছু ক্ষেত্রে অবশিষ্টের ১/৩)। মায়ের মর্যাদা এত বেশি যে রাসূলুল্লাহ (ﷺ) তিনবার মা এবং একবার বাবার সেবার কথা বলেছেন।',
+      masala: ['সন্তান থাকলে: ১/৬', 'সন্তান না থাকলে: ১/৩', 'গারাভাইন মাসআলায়: অবশিষ্টের ১/৩'],
+      category: 'নির্ধারিত অংশ',
+      importance: 5
+    },
+    {
+      id: 10,
+      title: 'ন্যায়বিচার',
+      arabic: 'اعْدِلُوا بَيْنَ أَوْلَادِكُمْ',
+      bangla: 'তোমরা তোমাদের সন্তানদের মধ্যে ইনসাফ কর।',
+      source: 'সুনানে আবু দাউদ: ৩৫৪৪',
+      grade: 'সহিহ',
+      narrator: 'নুমান ইবনে বশীর (রাঃ)',
+      explanation: 'জীবদ্দশায় সন্তানদের মধ্যে দান-হাদিয়াতে ন্যায়বিচার করা আবশ্যক। তবে মৃত্যুর পর উত্তরাধিকার আল্লাহর নির্ধারিত নিয়ম অনুযায়ী হবে। কেউ জীবিত অবস্থায় কাউকে বেশি দিয়ে রাখলে তা অন্যায় এবং সেই হাদিয়া ফেরত দিতে হবে অথবা সবাইকে সমান করতে হবে।',
+      masala: ['জীবদ্দশায় দান: সমান হতে হবে', 'মৃত্যুর পর: শরীয়াহ অনুযায়ী', 'অন্যায় করলে পাপ হবে'],
+      category: 'ন্যায়বিচার',
+      importance: 4
+    }
+  ];
+
+  const categories = [
+    { id: 'all', name: 'সব হাদিস', count: hadiths.length },
+    { id: 'গুরুত্ব', name: 'গুরুত্ব', count: hadiths.filter(h => h.category === 'গুরুত্ব').length },
+    { id: 'আসাবা', name: 'আসাবা', count: hadiths.filter(h => h.category === 'আসাবা').length },
+    { id: 'বঞ্চনা', name: 'বঞ্চনা', count: hadiths.filter(h => h.category === 'বঞ্চনা').length },
+    { id: 'নির্ধারিত অংশ', name: 'নির্ধারিত অংশ', count: hadiths.filter(h => h.category === 'নির্ধারিত অংশ').length },
+  ];
+
+  const filteredHadiths = hadiths.filter(hadith => {
+    const matchesCategory = selectedCategory === 'all' || hadith.category === selectedCategory;
+    const matchesSearch = hadith.title.includes(searchTerm) || 
+                          hadith.bangla.includes(searchTerm) ||
+                          hadith.explanation.includes(searchTerm);
+    return matchesCategory && matchesSearch;
+  });
+
+  return (
+    <div className="min-h-screen bg-[#F8FAFC] p-4 md:p-8">
+      <div className="max-w-6xl mx-auto">
+        {/* Hero */}
+        <div className="bg-gradient-to-br from-amber-700 to-orange-800 text-white p-8 md:p-12 rounded-[2rem] shadow-xl mb-8">
+          <div className="flex items-center gap-4 mb-4">
+            <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+              <FaBookmark size={32} className="text-amber-300" />
+            </div>
+            <div>
+              <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+                হাদিস সংকলন
+              </h1>
+              <p className="text-amber-100/80 text-sm mt-1">
+                মীরাস সংক্রান্ত সহিহ হাদিসসমূহ
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Search & Filter */}
+        <div className="bg-white p-6 rounded-2xl shadow-sm mb-6">
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="relative">
+              <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+              <input
+                type="text"
+                placeholder="হাদিস খুঁজুন..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500"
+              />
+            </div>
+            <div className="relative">
+              <FaFilter className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 appearance-none"
+              >
+                {categories.map(cat => (
+                  <option key={cat.id} value={cat.id}>
+                    {cat.name} ({cat.count})
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {/* Hadiths */}
+        <div className="space-y-6">
+          {filteredHadiths.map((hadith) => (
+            <div key={hadith.id} className="bg-white rounded-[2rem] shadow-sm border border-gray-100 p-6">
+              {/* Header */}
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 bg-amber-600 text-white rounded-xl flex items-center justify-center font-bold">
+                      {hadith.id}
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-800">{hadith.title}</h3>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-xs font-bold">
+                      {hadith.category}
+                    </span>
+                    <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold">
+                      {hadith.grade}
+                    </span>
+                    {Array(hadith.importance).fill(0).map((_, i) => (
+                      <FaStar key={i} className="text-amber-400" size={14} />
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Arabic */}
+              <div className="bg-amber-50 p-6 rounded-xl border border-amber-100 mb-4">
+                <p className="arabic-text text-right text-amber-900 leading-loose">
+                  {hadith.arabic}
+                </p>
+              </div>
+
+              {/* Bangla */}
+              <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-100 mb-4">
+                <p className="text-emerald-900 leading-relaxed">
+                  <strong>অনুবাদ:</strong> {hadith.bangla}
+                </p>
+              </div>
+
+              {/* Source */}
+              <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 mb-4">
+                <p className="text-blue-900 text-sm">
+                  <strong>সূত্র:</strong> {hadith.source} <br />
+                  <strong>বর্ণনাকারী:</strong> {hadith.narrator}
+                </p>
+              </div>
+
+              {/* Explanation */}
+              <div className="bg-purple-50 p-4 rounded-xl border border-purple-100 mb-4">
+                <p className="text-purple-900 text-sm text-justify leading-relaxed">
+                  <strong>ব্যাখ্যা:</strong> {hadith.explanation}
+                </p>
+              </div>
+
+              {/* Masala */}
+              <div className="bg-gray-50 p-4 rounded-xl">
+                <h4 className="font-bold text-gray-800 mb-2 text-sm">সংশ্লিষ্ট মাসআলা:</h4>
+                <ul className="space-y-1">
+                  {hadith.masala.map((m, i) => (
+                    <li key={i} className="text-gray-700 text-sm flex items-start gap-2">
+                      <span className="text-emerald-600 font-bold">•</span>
+                      {m}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* No Results */}
+        {filteredHadiths.length === 0 && (
+          <div className="text-center py-12 bg-white rounded-2xl">
+            <div className="text-6xl mb-4">📚</div>
+            <h3 className="text-xl font-bold text-gray-700 mb-2">কোনো হাদিস পাওয়া যায়নি</h3>
+            <p className="text-gray-500">অন্য ক্যাটাগরি বা শব্দ ব্যবহার করুন</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default HadithCollection;

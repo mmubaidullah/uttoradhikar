@@ -150,9 +150,9 @@ const Guide = () => {
               <div className="space-y-4 text-sm">
                 {[
                   { title: "বাবা থাকলে", result: "দাদা বঞ্চিত" },
-                  { title: "মা থাকলে", result: "দাদি বঞ্চিত" },
+                  { title: "মা থাকলে", result: "দাদি/নানি বঞ্চিত" },
                   { title: "ছেলে থাকলে", result: "নাতি বঞ্চিত" },
-                  { title: "মা থাকলে", result: "দাদি বঞ্চিত" }
+                  { title: "পুত্র থাকলে", result: "পুত্রের পুত্র বঞ্চিত" }
                 ].map((item, idx) => (
                   <div key={idx} className="flex justify-between border-b border-emerald-800/50 pb-2">
                     <span className="opacity-80">{item.title}</span>

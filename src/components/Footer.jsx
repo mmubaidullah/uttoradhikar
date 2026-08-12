@@ -1,90 +1,79 @@
-import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import { FaBalanceScale, FaFacebookF, FaTwitter, FaLinkedinIn, FaEnvelope } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import SiteLogo from './SiteLogo';
 
 export const Footer = () => {
+  const year = new Date().getFullYear();
+
   return (
-    <footer className="bg-gradient-to-b from-gray-900 to-emerald-950 text-white pt-10 pb-5 no-print">
-      <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
-        
-        {/* ব্র্যান্ড সেকশন */}
-        <div className="col-span-1 md:col-span-1">
-          <div className="flex items-center gap-3 mb-6 group cursor-default">
-            <div className="w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-500 text-white rounded-xl flex items-center justify-center shadow-lg transform group-hover:rotate-12 transition-all duration-500">
-              <FaBalanceScale size={20} />
+    <footer className="bg-[#1a4731] text-white no-print">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* Main */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 py-12 border-b border-white/10">
+
+          {/* Brand */}
+          <div>
+            <div className="flex items-center gap-2.5 mb-4">
+              <SiteLogo size={34} variant="light" />
+              <span className="font-bold text-lg text-white">উত্তরাধিকার</span>
             </div>
-            <h3 className="text-2xl font-black tracking-tight bg-gradient-to-r from-white to-emerald-200 bg-clip-text text-transparent">
-              উত্তরাধিকার
-            </h3>
+            <p className="text-white/60 text-sm leading-relaxed max-w-xs">
+              ইসলামী শরীয়াহ ও হানাফি মাযহাব অনুযায়ী সম্পদ বন্টনের নির্ভরযোগ্য ডিজিটাল হিসাবক।
+            </p>
+            <div className="mt-4 text-xs text-[#c9a84c] italic">
+              "ফারায়েজ শিক্ষা করো — এটি জ্ঞানের অর্ধেক"
+            </div>
           </div>
-          <p className="text-sm text-emerald-100/60 leading-relaxed mb-6">
-            ইসলামী শরীয়াহ ও হানাফি মাযহাবের মূলনীতি অনুযায়ী সঠিক ও নির্ভরযোগ্য সম্পদ বন্টনের আধুনিক ডিজিটাল প্ল্যাটফর্ম।
+
+          {/* Links */}
+          <div>
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-4">পেজসমূহ</h4>
+            <ul className="space-y-2.5">
+              {[
+                { to: "/",               label: "ক্যালকুলেটর" },
+                { to: "/guide",          label: "বন্টন গাইড" },
+                { to: "/case-studies",   label: "কেস স্টাডি" },
+                { to: "/bangladesh-law", label: "বাংলাদেশী আইন" },
+                { to: "/faq",            label: "প্রশ্নোত্তর" },
+                { to: "/about",          label: "পরিচিতি" },
+              ].map(l => (
+                <li key={l.to}>
+                  <Link to={l.to} className="text-sm text-white/60 hover:text-white transition-colors">
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Reference */}
+          <div>
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-4">ইসলামী রেফারেন্স</h4>
+            <ul className="space-y-2.5">
+              {[
+                { to: "/quran",         label: "কুরআনের আয়াত" },
+                { to: "/hadith",        label: "হাদিস সংকলন" },
+                { to: "/awl-radd",      label: "আউল ও রাদ্দ" },
+                { to: "/special-cases", label: "বিশেষ মাসআলা" },
+                { to: "/terms",         label: "শর্তাবলী" },
+              ].map(l => (
+                <li key={l.to}>
+                  <Link to={l.to} className="text-sm text-white/60 hover:text-white transition-colors">
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="py-5 flex flex-col sm:flex-row justify-between items-center gap-3">
+          <p className="text-white/40 text-xs">
+            © {year} উত্তরাধিকার ক্যালকুলেটর। সর্বস্বত্ব সংরক্ষিত।
           </p>
-        </div>
-        
-        {/* কুইক লিঙ্কস - নেভিগেশন */}
-        <div>
-          <h4 className="text-xs font-black text-emerald-400 uppercase tracking-[0.2em] mb-8">পেজসমূহ</h4>
-          <ul className="flex flex-col gap-4">
-            <li>
-              <NavLink to="/" className={({isActive}) => `text-sm transition-all duration-300 hover:text-emerald-300 ${isActive ? 'text-emerald-400 font-bold' : 'text-emerald-100/70'}`}>
-                ক্যালকুলেটর
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/guide" className={({isActive}) => `text-sm transition-all duration-300 hover:text-emerald-300 ${isActive ? 'text-emerald-400 font-bold' : 'text-emerald-100/70'}`}>
-                বন্টন গাইড
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/about" className={({isActive}) => `text-sm transition-all duration-300 hover:text-emerald-300 ${isActive ? 'text-emerald-400 font-bold' : 'text-emerald-100/70'}`}>
-                আমাদের সম্পর্কে
-              </NavLink>
-            </li>
-          </ul>
-        </div>
-
-        {/* আইনি নীতিমালা */}
-        <div>
-          <h4 className="text-xs font-black text-emerald-400 uppercase tracking-[0.2em] mb-8">সহায়তা</h4>
-          <ul className="flex flex-col gap-4">
-            <li><Link to="/terms" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-all font-medium">গোপনীয়তা নীতি</Link></li>
-            <li><Link to="/terms" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-all font-medium">ব্যবহারের শর্তাবলী</Link></li>
-            <li><Link to="/terms" className="text-sm text-emerald-100/70 hover:text-emerald-300 transition-all font-medium">ডিসক্লেইমার</Link></li>
-          </ul>
-        </div>
-
-        {/* কন্টাক্ট ও সোশ্যাল */}
-        <div>
-          <h4 className="text-xs font-black text-emerald-400 uppercase tracking-[0.2em] mb-8">যোগাযোগ</h4>
-          <div className="flex items-center gap-3 text-emerald-100/70 mb-6 group cursor-pointer">
-            <FaEnvelope className="text-emerald-400 group-hover:scale-110 transition-transform" />
-            <span className="text-sm group-hover:text-white transition-colors">support@uttoradhikar.com</span>
-          </div>
-          
-          <div className="flex gap-4">
-            {[ 
-              { icon: <FaFacebookF />, link: "#" },
-              { icon: <FaTwitter />, link: "#" },
-              { icon: <FaLinkedinIn />, link: "#" } 
-            ].map((social, idx) => (
-              <a 
-                key={idx} 
-                href={social.link} 
-                className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-emerald-100 hover:bg-emerald-500 hover:text-white hover:shadow-[0_0_15px_rgba(16,185,129,0.4)] transition-all duration-500"
-              >
-                {social.icon}
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
-      
-      {/* কপিরাইট ও সিস্টেম স্ট্যাটাস */}
-      <div className="max-w-6xl mx-auto px-6 mt-5 pt-4 border-t border-white/5 flex flex-col md:row justify-between items-center gap-6">
-        <div className="text-center md:text-left">
-          <p className="text-[12px] text-emerald-100/40 font-medium tracking-wide">
-            &copy; ২০২৫ উত্তরাধিকার ক্যালকুলেটর | সর্বস্বত্ব সংরক্ষিত
+          <p className="text-white/30 text-xs">
+            প্রযুক্তির সুফল পৌঁছে যাক উম্মাহর আঙিনায়।
           </p>
         </div>
       </div>

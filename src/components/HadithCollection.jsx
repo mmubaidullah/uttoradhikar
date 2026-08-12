@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { FaBookmark, FaSearch, FaFilter, FaStar } from 'react-icons/fa';
+import { useState } from 'react';
+import { FaBookmark, FaSearch, FaStar, FaChevronDown } from 'react-icons/fa';
 
 const HadithCollection = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -79,7 +79,7 @@ const HadithCollection = () => {
       source: 'সুনানে তিরমিযী: ২১২০, সুনানে ইবনে মাজাহ: ২৭১৩',
       grade: 'হাসান',
       narrator: 'আমর ইবনুল আস (রাঃ)',
-      explanation: 'মৃত ব্যক্তির সম্পদ থেকে প্রথমে তার দাফন-কাফনের খরচ, তারপর ঋণ পরিশোধ করতে হবে। এরপর অসিয়ত (যদি থাকে) পূরণ করতে হবে - তবে তা মোট সম্পদের ১/৩-এর বেশি হতে পারবে না। সবশেষে অবশিষ্ট সম্পদ ওয়ারিশদের মধ্যে বন্টন হবে। ওয়ারিশদের জন্য অসিয়ত করা নিষিদ্ধ, কারণ আল্লাহ তাদের অংশ নির্ধারণ করে দিয়েছেন।',
+      explanation: 'মৃত ব্যক্তির সম্পদ থেকে প্রথমে তার দাফন-কাফনের খরচ, তারপর ঋণ পরিশোধ করতে হবে। এরপর অসিয়ত (যদি থাকে) পূরণ করতে হবে - তবে তা মোট সম্পদের ১/৩-এর বেশি হতে পারবে না। সবশেষে অবশিষ্ট সম্পদ ওয়ারিশদের মধ্যে বন্টন হবে।',
       masala: ['১. দাফন খরচ', '২. ঋণ পরিশোধ', '৩. অসিয়ত (১/৩ পর্যন্ত)', '৪. ওয়ারিশদের অংশ'],
       category: 'পূর্বশর্ত',
       importance: 5
@@ -105,7 +105,7 @@ const HadithCollection = () => {
       source: 'সূরা নিসা: ১১ (কুরআন)',
       grade: 'কুরআন',
       narrator: 'আল্লাহর বাণী',
-      explanation: 'এটি কুরআনের আয়াত যা হাদিসেও বর্ণিত হয়েছে। পুত্র কন্যার দ্বিগুণ পায় কারণ ইসলামে পুরুষের উপর পরিবার ভরণপোষণ, মোহরানা দেওয়া ও যুদ্ধে অংশগ্রহণের দায়িত্ব আছে। নারী তার সম্পদ সম্পূর্ণ নিজের জন্য রাখতে পারে, কাউকে দিতে বাধ্য নয়। তাই আপাত অসমতা আসলে ভারসাম্যপূর্ণ।',
+      explanation: 'এটি কুরআনের আয়াত যা হাদিসেও বর্ণিত হয়েছে। পুত্র কন্যার দ্বিগুণ পায় কারণ ইসলামে পুরুষের উপর পরিবার ভরণপোষণ, মোহরানা দেওয়া ও যুদ্ধে অংশগ্রহণের দায়িত্ব আছে। নারী তার সম্পদ সম্পূর্ণ নিজের জন্য রাখতে পারে।',
       masala: ['ছেলে-মেয়ে একসাথে: ২:১', 'শুধু মেয়ে: তাদের নির্ধারিত অংশ', 'শুধু ছেলে: পুরো সম্পদ'],
       category: 'নির্ধারিত অংশ',
       importance: 5
@@ -118,7 +118,7 @@ const HadithCollection = () => {
       source: 'সহিহ বুখারী: ৫৯৭১',
       grade: 'সহিহ',
       narrator: 'আবু হুরাইরা (রাঃ)',
-      explanation: 'মা হলো সবচেয়ে সম্মানিত ব্যক্তি এবং ফারায়েজেও তার বিশেষ স্থান আছে। মা সবসময় নির্ধারিত অংশ পায় - বঞ্চিত হয় না। সন্তান থাকলে ১/৬, না থাকলে ১/৩ (কিছু ক্ষেত্রে অবশিষ্টের ১/৩)। মায়ের মর্যাদা এত বেশি যে রাসূলুল্লাহ (ﷺ) তিনবার মা এবং একবার বাবার সেবার কথা বলেছেন।',
+      explanation: 'মা হলো সবচেয়ে সম্মানিত ব্যক্তি এবং ফারায়েজেও তার বিশেষ স্থান আছে। মা সবসময় নির্ধারিত অংশ পায় - বঞ্চিত হয় না। সন্তান থাকলে ১/৬, না থাকলে ১/৩ (কিছু ক্ষেত্রে অবশিষ্টের ১/৩)।',
       masala: ['সন্তান থাকলে: ১/৬', 'সন্তান না থাকলে: ১/৩', 'গারাভাইন মাসআলায়: অবশিষ্টের ১/৩'],
       category: 'নির্ধারিত অংশ',
       importance: 5
@@ -131,7 +131,7 @@ const HadithCollection = () => {
       source: 'সুনানে আবু দাউদ: ৩৫৪৪',
       grade: 'সহিহ',
       narrator: 'নুমান ইবনে বশীর (রাঃ)',
-      explanation: 'জীবদ্দশায় সন্তানদের মধ্যে দান-হাদিয়াতে ন্যায়বিচার করা আবশ্যক। তবে মৃত্যুর পর উত্তরাধিকার আল্লাহর নির্ধারিত নিয়ম অনুযায়ী হবে। কেউ জীবিত অবস্থায় কাউকে বেশি দিয়ে রাখলে তা অন্যায় এবং সেই হাদিয়া ফেরত দিতে হবে অথবা সবাইকে সমান করতে হবে।',
+      explanation: 'জীবদ্দশায় সন্তানদের মধ্যে দান-হাদিয়াতে ন্যায়বিচার করা আবশ্যক। তবে মৃত্যুর পর উত্তরাধিকার আল্লাহর নির্ধারিত নিয়ম অনুযায়ী হবে। কেউ জীবিত অবস্থায় কাউকে বেশি দিয়ে রাখলে তা অন্যায়।',
       masala: ['জীবদ্দশায় দান: সমান হতে হবে', 'মৃত্যুর পর: শরীয়াহ অনুযায়ী', 'অন্যায় করলে পাপ হবে'],
       category: 'ন্যায়বিচার',
       importance: 4
@@ -139,138 +139,147 @@ const HadithCollection = () => {
   ];
 
   const categories = [
-    { id: 'all', name: 'সব হাদিস', count: hadiths.length },
+    { id: 'all', name: 'সব', count: hadiths.length },
     { id: 'গুরুত্ব', name: 'গুরুত্ব', count: hadiths.filter(h => h.category === 'গুরুত্ব').length },
     { id: 'আসাবা', name: 'আসাবা', count: hadiths.filter(h => h.category === 'আসাবা').length },
     { id: 'বঞ্চনা', name: 'বঞ্চনা', count: hadiths.filter(h => h.category === 'বঞ্চনা').length },
     { id: 'নির্ধারিত অংশ', name: 'নির্ধারিত অংশ', count: hadiths.filter(h => h.category === 'নির্ধারিত অংশ').length },
+    { id: 'পূর্বশর্ত', name: 'পূর্বশর্ত', count: hadiths.filter(h => h.category === 'পূর্বশর্ত').length },
+    { id: 'অসিয়ত', name: 'অসিয়ত', count: hadiths.filter(h => h.category === 'অসিয়ত').length },
   ];
 
   const filteredHadiths = hadiths.filter(hadith => {
     const matchesCategory = selectedCategory === 'all' || hadith.category === selectedCategory;
-    const matchesSearch = hadith.title.includes(searchTerm) || 
+    const matchesSearch = hadith.title.includes(searchTerm) ||
                           hadith.bangla.includes(searchTerm) ||
                           hadith.explanation.includes(searchTerm);
     return matchesCategory && matchesSearch;
   });
 
+  const gradeStyle = (grade) => {
+    if (grade === 'সহিহ') return 'bg-[#1a4731]/8 text-[#1a4731]';
+    if (grade === 'হাসান') return 'bg-amber-100 text-amber-700';
+    return 'bg-[#1a4731]/8 text-[#1a4731]';
+  };
+
   return (
-    <div className="min-h-screen bg-[#F8FAFC] p-4 md:p-8">
+    <div className="min-h-screen bg-[#f7f5f0] py-8 px-4">
       <div className="max-w-6xl mx-auto">
-        {/* Hero */}
-        <div className="bg-gradient-to-br from-amber-700 to-orange-800 text-white p-8 md:p-12 rounded-[2rem] shadow-xl mb-8">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-              <FaBookmark size={32} className="text-amber-300" />
-            </div>
-            <div>
-              <h1 className="text-3xl md:text-4xl font-black tracking-tight">
-                হাদিস সংকলন
-              </h1>
-              <p className="text-amber-100/80 text-sm mt-1">
-                মীরাস সংক্রান্ত সহিহ হাদিসসমূহ
-              </p>
-            </div>
+
+        {/* Breadcrumb */}
+        <div className="flex items-center gap-2 text-[#1a4731]/60 text-sm mb-6">
+          <span>হোম</span>
+          <span>/</span>
+          <span className="text-[#1a4731] font-medium">হাদিস সংকলন</span>
+        </div>
+
+        {/* Page Header */}
+        <div className="mb-8">
+          <div className="flex items-center gap-3 mb-2">
+            <FaBookmark className="text-[#c9a84c]" size={22} />
+            <h1 className="text-2xl font-bold text-[#1a4731]">হাদিস সংকলন</h1>
+          </div>
+          <p className="text-gray-600 text-sm">মীরাস সংক্রান্ত সহিহ হাদিসসমূহ — বিস্তারিত ব্যাখ্যাসহ</p>
+        </div>
+
+        {/* Search */}
+        <div className="bg-white border border-[#e2ddd5] rounded-xl p-4 mb-4 shadow-sm">
+          <div className="relative">
+            <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={14} />
+            <input
+              type="text"
+              placeholder="হাদিস খুঁজুন..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-10 pr-4 py-2.5 border border-[#e2ddd5] rounded-lg text-sm focus:outline-none focus:border-[#1a4731] bg-white"
+            />
           </div>
         </div>
 
-        {/* Search & Filter */}
-        <div className="bg-white p-6 rounded-2xl shadow-sm mb-6">
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="relative">
-              <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-              <input
-                type="text"
-                placeholder="হাদিস খুঁজুন..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500"
-              />
-            </div>
-            <div className="relative">
-              <FaFilter className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-              <select
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 appearance-none"
-              >
-                {categories.map(cat => (
-                  <option key={cat.id} value={cat.id}>
-                    {cat.name} ({cat.count})
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
+        {/* Filter Tabs */}
+        <div className="flex flex-wrap gap-2 mb-6">
+          {categories.map(cat => (
+            <button
+              key={cat.id}
+              onClick={() => setSelectedCategory(cat.id)}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                selectedCategory === cat.id
+                  ? 'bg-[#1a4731] text-white'
+                  : 'bg-white text-gray-600 hover:bg-gray-50 border border-[#e2ddd5]'
+              }`}
+            >
+              {cat.name}
+              <span className={`ml-1.5 text-xs ${selectedCategory === cat.id ? 'text-white/70' : 'text-gray-400'}`}>
+                {cat.count}
+              </span>
+            </button>
+          ))}
         </div>
 
-        {/* Hadiths */}
-        <div className="space-y-6">
+        {/* Hadith Cards */}
+        <div className="space-y-4">
           {filteredHadiths.map((hadith) => (
-            <div key={hadith.id} className="bg-white rounded-[2rem] shadow-sm border border-gray-100 p-6">
+            <div key={hadith.id} className="bg-white border border-[#e2ddd5] rounded-xl shadow-sm overflow-hidden">
               {/* Header */}
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="w-10 h-10 bg-amber-600 text-white rounded-xl flex items-center justify-center font-bold">
-                      {hadith.id}
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-800">{hadith.title}</h3>
+              <div className="p-5">
+                <div className="flex items-start gap-3 mb-4">
+                  <div className="w-9 h-9 bg-[#1a4731] text-white rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0">
+                    {hadith.id}
                   </div>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-xs font-bold">
-                      {hadith.category}
-                    </span>
-                    <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold">
-                      {hadith.grade}
-                    </span>
-                    {Array(hadith.importance).fill(0).map((_, i) => (
-                      <FaStar key={i} className="text-amber-400" size={14} />
+                  <div className="flex-1">
+                    <h3 className="font-bold text-[#1a4731] text-base mb-2">{hadith.title}</h3>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="bg-[#1a4731]/8 text-[#1a4731] px-2.5 py-0.5 rounded-full text-xs font-medium">
+                        {hadith.category}
+                      </span>
+                      <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${gradeStyle(hadith.grade)}`}>
+                        {hadith.grade}
+                      </span>
+                      <span className="flex items-center gap-0.5">
+                        {Array(hadith.importance).fill(0).map((_, i) => (
+                          <FaStar key={i} className="text-amber-400" size={11} />
+                        ))}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Arabic */}
+                <div className="bg-[#f7f5f0] p-5 rounded-lg mb-4">
+                  <p className="arabic-text text-right text-[#1a4731] leading-loose">
+                    {hadith.arabic}
+                  </p>
+                </div>
+
+                {/* Bangla Translation */}
+                <p className="text-gray-700 text-sm leading-relaxed mb-4">
+                  <span className="font-medium text-[#1a4731]">অনুবাদ:</span> {hadith.bangla}
+                </p>
+
+                {/* Source */}
+                <div className="flex items-start gap-2 mb-4 text-xs text-gray-500">
+                  <span className="font-medium text-[#1a4731]">সূত্র:</span>
+                  <span>{hadith.source}</span>
+                  <span>·</span>
+                  <span>{hadith.narrator}</span>
+                </div>
+
+                {/* Explanation */}
+                <p className="text-gray-600 text-sm leading-relaxed mb-4 text-justify">
+                  {hadith.explanation}
+                </p>
+
+                {/* Masala */}
+                <div className="border-t border-[#e2ddd5] pt-3">
+                  <p className="text-xs font-medium text-[#1a4731] mb-2">সংশ্লিষ্ট মাসআলা:</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {hadith.masala.map((m, i) => (
+                      <span key={i} className="bg-[#f7f5f0] text-gray-600 px-2.5 py-1 rounded-lg text-xs">
+                        {m}
+                      </span>
                     ))}
                   </div>
                 </div>
-              </div>
-
-              {/* Arabic */}
-              <div className="bg-amber-50 p-6 rounded-xl border border-amber-100 mb-4">
-                <p className="arabic-text text-right text-amber-900 leading-loose">
-                  {hadith.arabic}
-                </p>
-              </div>
-
-              {/* Bangla */}
-              <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-100 mb-4">
-                <p className="text-emerald-900 leading-relaxed">
-                  <strong>অনুবাদ:</strong> {hadith.bangla}
-                </p>
-              </div>
-
-              {/* Source */}
-              <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 mb-4">
-                <p className="text-blue-900 text-sm">
-                  <strong>সূত্র:</strong> {hadith.source} <br />
-                  <strong>বর্ণনাকারী:</strong> {hadith.narrator}
-                </p>
-              </div>
-
-              {/* Explanation */}
-              <div className="bg-purple-50 p-4 rounded-xl border border-purple-100 mb-4">
-                <p className="text-purple-900 text-sm text-justify leading-relaxed">
-                  <strong>ব্যাখ্যা:</strong> {hadith.explanation}
-                </p>
-              </div>
-
-              {/* Masala */}
-              <div className="bg-gray-50 p-4 rounded-xl">
-                <h4 className="font-bold text-gray-800 mb-2 text-sm">সংশ্লিষ্ট মাসআলা:</h4>
-                <ul className="space-y-1">
-                  {hadith.masala.map((m, i) => (
-                    <li key={i} className="text-gray-700 text-sm flex items-start gap-2">
-                      <span className="text-emerald-600 font-bold">•</span>
-                      {m}
-                    </li>
-                  ))}
-                </ul>
               </div>
             </div>
           ))}
@@ -278,12 +287,13 @@ const HadithCollection = () => {
 
         {/* No Results */}
         {filteredHadiths.length === 0 && (
-          <div className="text-center py-12 bg-white rounded-2xl">
-            <div className="text-6xl mb-4">📚</div>
-            <h3 className="text-xl font-bold text-gray-700 mb-2">কোনো হাদিস পাওয়া যায়নি</h3>
-            <p className="text-gray-500">অন্য ক্যাটাগরি বা শব্দ ব্যবহার করুন</p>
+          <div className="text-center py-12 bg-white border border-[#e2ddd5] rounded-xl">
+            <FaBookmark className="text-gray-300 mx-auto mb-4" size={48} />
+            <h3 className="font-bold text-[#1a4731] mb-1">কোনো হাদিস পাওয়া যায়নি</h3>
+            <p className="text-gray-600 text-sm">অন্য ক্যাটাগরি বা শব্দ ব্যবহার করুন</p>
           </div>
         )}
+
       </div>
     </div>
   );

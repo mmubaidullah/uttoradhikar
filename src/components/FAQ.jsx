@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { FaQuestionCircle, FaSearch, FaBook, FaCheckCircle, FaFilter } from 'react-icons/fa';
+import { useState, useMemo } from 'react';
+import { FaQuestionCircle, FaSearch, FaBook, FaCheckCircle, FaGraduationCap, FaBullseye, FaPuzzlePiece, FaLightbulb, FaChevronDown } from 'react-icons/fa';
 
 const FAQ = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -26,7 +26,7 @@ const FAQ = () => {
         id: 'b3',
         q: 'আসাবা কাদের বলা হয়?',
         a: 'আসাবা (عصبة) মানে অবশিষ্টাংশ ভোগী। জাবিল ফুরুজদের অংশ দেওয়ার পর যা বাকি থাকে তা আসাবারা পায়। সাধারণত পুরুষ আত্মীয়রা আসাবা হয়। যেমন: ছেলে, পিতা, ভাই, চাচা ইত্যাদি।',
-        ref: 'সহিহ বুখারী: ৬৭৩২ - "أَلْحِقُوا الْفَرَائِضَ بِأَهْلِهَا فَمَا بَقِيَ فَلِأَوْلَى رَجُلٍ ذَكَرٍ"',
+        ref: 'সহিহ বুখারী: ৬৭৩২',
         importance: 5
       },
       {
@@ -54,7 +54,7 @@ const FAQ = () => {
         id: 'b7',
         q: 'পুত্র ও কন্যার অংশের অনুপাত কত?',
         a: 'পুত্র ও কন্যা একসাথে থাকলে পুত্র দ্বিগুণ পায়। অর্থাৎ ২:১ অনুপাতে। উদাহরণ: ২ ছেলে + ১ মেয়ে = মোট ৫ ভাগ (প্রতি ছেলে ২ ভাগ, মেয়ে ১ ভাগ)।',
-        ref: 'সূরা নিসা: ১১ - "لِلذَّكَرِ مِثْلُ حَظِّ الأُنثَيَيْنِ"',
+        ref: 'সূরা নিসা: ১১',
         importance: 5
       },
       {
@@ -79,7 +79,6 @@ const FAQ = () => {
         importance: 5
       }
     ],
-
     specific: [
       {
         id: 's1',
@@ -113,7 +112,7 @@ const FAQ = () => {
         id: 's5',
         q: 'বোন কখন আসাবা হয়?',
         a: 'বোন দুইভাবে আসাবা: (১) ভাই-এর সাথে (২:১ অনুপাতে), (২) মেয়ে বা পুত্রের মেয়ের সাথে (আসাবা বিল গাইর)। এক্ষেত্রে বোন যা বাকি থাকে সব পায়।',
-        ref: 'সহিহ বুখারী: ৬৭৩৬ - "اجْعَلُوا الأَخَوَاتِ مَعَ الْبَنَاتِ عَصَبَةً"',
+        ref: 'সহিহ বুখারী: ৬৭৩৬',
         importance: 4
       },
       {
@@ -152,7 +151,6 @@ const FAQ = () => {
         importance: 4
       }
     ],
-
     complex: [
       {
         id: 'c1',
@@ -211,7 +209,6 @@ const FAQ = () => {
         importance: 1
       }
     ],
-
     modern: [
       {
         id: 'm1',
@@ -237,7 +234,7 @@ const FAQ = () => {
       {
         id: 'm4',
         q: 'ক্রিপ্টোকারেন্সি কীভাবে বন্টন?',
-        a: 'ক্রিপ্টো সম্পদ হিসেবে গণ্য। মৃত্যুর দিনের মার্কেট মূল্য (যেমন: Binance rate) অনুযায়ী টাকায় রূপান্তর করে হিসাব। তবে ওয়ালেট অ্যাক্সেস (Private Key) প্রয়োজন। না থাকলে উদ্ধার অসম্ভব।',
+        a: 'ক্রিপ্টো সম্পদ হিসেবে গণ্য। মৃত্যুর দিনের মার্কেট মূল্য অনুযায়ী টাকায় রূপান্তর করে হিসাব। তবে ওয়ালেট অ্যাক্সেস (Private Key) প্রয়োজন। না থাকলে উদ্ধার অসম্ভব।',
         ref: 'Contemporary Fiqh Council Fatwa, Darul Ifta Birmingham 2020',
         importance: 3
       },
@@ -287,25 +284,22 @@ const FAQ = () => {
   };
 
   const categories = [
-    { id: 'all', name: 'সবগুলো', icon: '📚', count: Object.values(faqData).flat().length },
-    { id: 'basic', name: 'মৌলিক', icon: '📖', count: faqData.basic.length },
-    { id: 'specific', name: 'নির্দিষ্ট', icon: '🎯', count: faqData.specific.length },
-    { id: 'complex', name: 'জটিল', icon: '🧩', count: faqData.complex.length },
-    { id: 'modern', name: 'আধুনিক', icon: '💡', count: faqData.modern.length }
+    { id: 'all', name: 'সবগুলো', icon: <FaBook size={12} />, count: Object.values(faqData).flat().length },
+    { id: 'basic', name: 'মৌলিক', icon: <FaGraduationCap size={12} />, count: faqData.basic.length },
+    { id: 'specific', name: 'নির্দিষ্ট', icon: <FaBullseye size={12} />, count: faqData.specific.length },
+    { id: 'complex', name: 'জটিল', icon: <FaPuzzlePiece size={12} />, count: faqData.complex.length },
+    { id: 'modern', name: 'আধুনিক', icon: <FaLightbulb size={12} />, count: faqData.modern.length }
   ];
 
   const allFAQs = useMemo(() => {
     const combined = [...faqData.basic, ...faqData.specific, ...faqData.complex, ...faqData.modern];
-    
     let filtered = selectedCategory === 'all' ? combined : faqData[selectedCategory];
-    
     if (searchTerm) {
-      filtered = filtered.filter(faq => 
+      filtered = filtered.filter(faq =>
         faq.q.toLowerCase().includes(searchTerm.toLowerCase()) ||
         faq.a.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
-    
     return filtered;
   }, [selectedCategory, searchTerm]);
 
@@ -314,176 +308,115 @@ const FAQ = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 p-4 md:p-8">
+    <div className="min-h-screen bg-[#f7f5f0] py-8 px-4">
       <div className="max-w-6xl mx-auto">
-        {/* Hero */}
-        <div className="bg-gradient-to-br from-blue-800 to-indigo-900 text-white p-8 md:p-12 rounded-[2rem] shadow-2xl mb-8">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-              <FaQuestionCircle size={32} className="text-blue-300" />
-            </div>
-            <div>
-              <h1 className="text-3xl md:text-4xl font-black tracking-tight">
-                সচরাচর জিজ্ঞাসা (FAQ)
-              </h1>
-              <p className="text-blue-100/80 text-sm mt-1">
-                উত্তরাধিকার সংক্রান্ত গুরুত্বপূর্ণ প্রশ্নোত্তর
-              </p>
-            </div>
-          </div>
 
-          <div className="grid md:grid-cols-3 gap-4 mt-6">
-            <div className="bg-white/10 backdrop-blur-sm p-4 rounded-xl">
-              <div className="text-3xl font-black text-blue-200">{allFAQs.length}</div>
-              <div className="text-sm text-blue-100">মোট প্রশ্নোত্তর</div>
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm p-4 rounded-xl">
-              <div className="text-3xl font-black text-green-200">৪</div>
-              <div className="text-sm text-blue-100">বিষয় ক্যাটাগরি</div>
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm p-4 rounded-xl">
-              <div className="text-3xl font-black text-amber-200">১০০%</div>
-              <div className="text-sm text-blue-100">দলিল সহকারে</div>
-            </div>
+        {/* Breadcrumb */}
+        <div className="flex items-center gap-2 text-[#1a4731]/60 text-sm mb-6">
+          <span>হোম</span>
+          <span>/</span>
+          <span className="text-[#1a4731] font-medium">সচরাচর জিজ্ঞাসা</span>
+        </div>
+
+        {/* Page Header */}
+        <div className="mb-8">
+          <div className="flex items-center gap-3 mb-2">
+            <FaQuestionCircle className="text-[#c9a84c]" size={22} />
+            <h1 className="text-2xl font-bold text-[#1a4731]">সচরাচর জিজ্ঞাসা (FAQ)</h1>
+          </div>
+          <p className="text-gray-600 text-sm">উত্তরাধিকার সংক্রান্ত গুরুত্বপূর্ণ প্রশ্নোত্তর — দলিলসহ</p>
+        </div>
+
+        {/* Search */}
+        <div className="bg-white border border-[#e2ddd5] rounded-xl p-4 mb-4 shadow-sm">
+          <div className="relative">
+            <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={14} />
+            <input
+              type="text"
+              placeholder="প্রশ্ন বা উত্তরে সার্চ করুন..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-10 pr-4 py-2.5 border border-[#e2ddd5] rounded-lg text-sm focus:outline-none focus:border-[#1a4731] bg-white"
+            />
           </div>
         </div>
 
-        {/* Search & Filter */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
-          <div className="flex flex-col md:flex-row gap-4">
-            {/* Search */}
-            <div className="flex-1 relative">
-              <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-              <input
-                type="text"
-                placeholder="প্রশ্ন বা উত্তরে সার্চ করুন..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors"
-              />
-            </div>
-
-            {/* Category Dropdown */}
-            <div className="relative">
-              <FaFilter className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-              <select
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
-                className="pl-12 pr-8 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors appearance-none bg-white cursor-pointer min-w-[200px]"
-              >
-                {categories.map(cat => (
-                  <option key={cat.id} value={cat.id}>
-                    {cat.icon} {cat.name} ({cat.count})
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </div>
-
-        {/* Category Pills */}
-        <div className="flex flex-wrap gap-3 mb-8">
+        {/* Category Tabs */}
+        <div className="flex flex-wrap gap-2 mb-6 overflow-x-auto">
           {categories.map(cat => (
             <button
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
-              className={`px-5 py-2.5 rounded-xl font-semibold transition-all ${
+              className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${
                 selectedCategory === cat.id
-                  ? 'bg-blue-600 text-white shadow-lg shadow-blue-200'
-                  : 'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-200'
+                  ? 'bg-[#1a4731] text-white'
+                  : 'bg-white text-gray-600 hover:bg-gray-50 border border-[#e2ddd5]'
               }`}
             >
-              <span className="mr-2">{cat.icon}</span>
+              {cat.icon}
               {cat.name}
-              <span className={`ml-2 text-xs ${selectedCategory === cat.id ? 'text-blue-100' : 'text-gray-500'}`}>
+              <span className={`text-xs ${selectedCategory === cat.id ? 'text-white/70' : 'text-gray-400'}`}>
                 {cat.count}
               </span>
             </button>
           ))}
         </div>
 
-        {/* FAQ List */}
-        <div className="space-y-4">
-          {allFAQs.length === 0 ? (
-            <div className="bg-white rounded-2xl p-12 text-center">
-              <FaQuestionCircle className="mx-auto text-gray-300 mb-4" size={64} />
-              <p className="text-gray-500 text-lg">কোনো প্রশ্ন পাওয়া যায়নি</p>
-              <p className="text-gray-400 text-sm mt-2">অন্য ক্যাটাগরি বা সার্চ টার্ম চেষ্টা করুন</p>
-            </div>
-          ) : (
-            allFAQs.map((faq, index) => (
-              <div 
-                key={faq.id}
-                className="bg-white rounded-2xl border-2 border-gray-100 overflow-hidden hover:border-blue-200 transition-all hover:shadow-lg"
-              >
+        {/* FAQ Accordion */}
+        {allFAQs.length === 0 ? (
+          <div className="bg-white border border-[#e2ddd5] rounded-xl p-12 text-center">
+            <FaQuestionCircle className="mx-auto text-gray-300 mb-4" size={48} />
+            <p className="text-gray-500">কোনো প্রশ্ন পাওয়া যায়নি</p>
+            <p className="text-gray-400 text-sm mt-1">অন্য ক্যাটাগরি বা সার্চ টার্ম চেষ্টা করুন</p>
+          </div>
+        ) : (
+          <div className="bg-white border border-[#e2ddd5] rounded-xl shadow-sm divide-y divide-[#e2ddd5]">
+            {allFAQs.map((faq, index) => (
+              <div key={faq.id}>
                 <button
                   onClick={() => toggleExpand(faq.id)}
-                  className="w-full p-6 text-left flex items-start gap-4 hover:bg-gray-50 transition-colors"
+                  className="w-full px-5 py-4 text-left flex items-start gap-3 hover:bg-[#f7f5f0] transition-colors"
                 >
-                  <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0 font-bold text-blue-700">
-                    {index + 1}
+                  <div className="w-7 h-7 bg-[#1a4731]/8 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="text-[#1a4731] text-xs font-bold">{index + 1}</span>
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-lg font-bold text-gray-800 mb-2 leading-relaxed">
+                    <h3 className="font-medium text-[#1a4731] text-sm leading-relaxed">
                       {faq.q}
                     </h3>
-                    {expandedId !== faq.id && (
-                      <p className="text-gray-500 text-sm line-clamp-2">
-                        {faq.a.substring(0, 100)}...
-                      </p>
-                    )}
                   </div>
-                  <div className={`text-blue-600 transition-transform ${expandedId === faq.id ? 'rotate-180' : ''}`}>
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </div>
+                  <FaChevronDown
+                    className={`text-gray-400 flex-shrink-0 mt-1 transition-transform ${expandedId === faq.id ? 'rotate-180' : ''}`}
+                    size={13}
+                  />
                 </button>
 
                 {expandedId === faq.id && (
-                  <div className="px-6 pb-6 pt-2 border-t-2 border-gray-50">
-                    <div className="ml-14">
-                      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-5 rounded-xl mb-4">
-                        <div className="flex items-start gap-3 mb-3">
-                          <FaCheckCircle className="text-green-600 flex-shrink-0 mt-1" size={20} />
-                          <p className="text-gray-800 leading-relaxed text-justify">
-                            {faq.a}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-lg">
-                        <div className="flex items-start gap-3">
-                          <FaBook className="text-amber-600 flex-shrink-0 mt-1" size={18} />
-                          <div>
-                            <p className="text-xs font-bold text-amber-800 mb-1">রেফারেন্স:</p>
-                            <p className="text-sm text-amber-900">{faq.ref}</p>
-                          </div>
-                        </div>
-                      </div>
+                  <div className="px-5 pb-5 ml-10">
+                    <div className="pt-1 pb-3">
+                      <p className="text-gray-600 text-sm leading-relaxed text-justify">
+                        {faq.a}
+                      </p>
+                    </div>
+                    <div className="flex items-start gap-2 border-l-2 border-[#c9a84c] pl-3">
+                      <FaBook className="text-[#c9a84c] flex-shrink-0 mt-0.5" size={11} />
+                      <p className="text-xs text-gray-500">{faq.ref}</p>
                     </div>
                   </div>
                 )}
               </div>
-            ))
-          )}
-        </div>
+            ))}
+          </div>
+        )}
 
         {/* Bottom Note */}
-        <div className="mt-12 bg-gradient-to-r from-purple-50 to-pink-50 p-8 rounded-2xl border-2 border-purple-100">
-          <h3 className="text-xl font-bold text-purple-900 mb-3 flex items-center gap-2">
-            <FaQuestionCircle className="text-purple-600" />
-            আরও প্রশ্ন আছে?
-          </h3>
-          <p className="text-purple-800 leading-relaxed mb-4">
-            এখানে আপনার প্রশ্নের উত্তর না পেলে আপনার স্থানীয় মুফতি বা ইসলামিক স্কলারের পরামর্শ নিন। 
-            জটিল মাসআলায় বিশেষজ্ঞের পরামর্শ অত্যন্ত গুরুত্বপূর্ণ।
-          </p>
-          <p className="text-sm text-purple-700">
-            <strong>গুরুত্বপূর্ণ:</strong> এই তথ্যগুলো শুধুমাত্র সাধারণ জ্ঞানের জন্য। 
+        <div className="mt-8 bg-amber-50 border border-amber-200 rounded-xl p-5">
+          <p className="text-sm text-amber-800 leading-relaxed">
+            <span className="font-bold">গুরুত্বপূর্ণ:</span> এই তথ্যগুলো শুধুমাত্র সাধারণ জ্ঞানের জন্য।
             বাস্তব ক্ষেত্রে প্রয়োগের আগে অবশ্যই যোগ্য আলেমের পরামর্শ নিন।
           </p>
         </div>
+
       </div>
     </div>
   );

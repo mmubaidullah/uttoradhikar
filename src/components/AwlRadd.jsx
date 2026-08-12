@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { FaArrowUp, FaArrowDown, FaCalculator, FaBook, FaLightbulb } from 'react-icons/fa';
+import { useState } from 'react';
+import { FaArrowUp, FaArrowDown, FaCalculator, FaBook, FaCheckCircle } from 'react-icons/fa';
 
 const AwlRadd = () => {
   const [selectedTab, setSelectedTab] = useState('awl');
@@ -78,170 +78,155 @@ const AwlRadd = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-cyan-50 p-4 md:p-8">
+    <div className="min-h-screen bg-[#f7f5f0] py-8 px-4">
       <div className="max-w-6xl mx-auto">
-        {/* Hero */}
-        <div className="bg-gradient-to-br from-cyan-800 to-blue-900 text-white p-8 md:p-12 rounded-[2rem] shadow-2xl mb-8">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-              <FaCalculator size={32} className="text-cyan-300" />
-            </div>
-            <div>
-              <h1 className="text-3xl md:text-4xl font-black tracking-tight">
-                আউল ও রাদ্দ
-              </h1>
-              <p className="text-cyan-100/80 text-sm mt-1">
-                বিশেষ হিসাব পদ্ধতির বিস্তারিত ব্যাখ্যা
-              </p>
-            </div>
-          </div>
 
-          <div className="grid md:grid-cols-2 gap-4 mt-6">
-            <div className="bg-white/10 backdrop-blur-sm p-4 rounded-xl">
-              <div className="text-3xl font-black text-red-200 mb-1">
-                <FaArrowUp className="inline" /> আউল
-              </div>
-              <div className="text-sm text-cyan-100">অংশ বেশি হলে বেস বৃদ্ধি</div>
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm p-4 rounded-xl">
-              <div className="text-3xl font-black text-green-200 mb-1">
-                <FaArrowDown className="inline" /> রাদ্দ
-              </div>
-              <div className="text-sm text-cyan-100">সম্পদ বাকি থাকলে ফেরত</div>
-            </div>
+        {/* Breadcrumb */}
+        <div className="flex items-center gap-2 text-[#1a4731]/60 text-sm mb-6">
+          <span>হোম</span>
+          <span>/</span>
+          <span className="text-[#1a4731] font-medium">আউল ও রাদ্দ</span>
+        </div>
+
+        {/* Page Header */}
+        <div className="mb-8">
+          <div className="flex items-center gap-3 mb-2">
+            <FaCalculator className="text-[#c9a84c]" size={22} />
+            <h1 className="text-2xl font-bold text-[#1a4731]">আউল ও রাদ্দ</h1>
           </div>
+          <p className="text-gray-600 text-sm">বিশেষ হিসাব পদ্ধতির বিস্তারিত ব্যাখ্যা ও উদাহরণ</p>
         </div>
 
         {/* Tab Selector */}
-        <div className="flex gap-4 mb-8">
+        <div className="flex gap-2 mb-8">
           <button
             onClick={() => setSelectedTab('awl')}
-            className={`flex-1 py-4 px-6 rounded-xl font-bold transition-all ${
+            className={`flex items-center gap-2 px-6 py-2.5 rounded-lg font-medium text-sm transition-all ${
               selectedTab === 'awl'
-                ? 'bg-red-600 text-white shadow-lg'
-                : 'bg-white text-gray-700 hover:bg-gray-50'
+                ? 'bg-[#1a4731] text-white'
+                : 'bg-white text-gray-600 hover:bg-gray-50 border border-[#e2ddd5]'
             }`}
           >
-            <FaArrowUp className="inline mr-2" />
+            <FaArrowUp size={13} />
             আউল (Awl)
           </button>
           <button
             onClick={() => setSelectedTab('radd')}
-            className={`flex-1 py-4 px-6 rounded-xl font-bold transition-all ${
+            className={`flex items-center gap-2 px-6 py-2.5 rounded-lg font-medium text-sm transition-all ${
               selectedTab === 'radd'
-                ? 'bg-green-600 text-white shadow-lg'
-                : 'bg-white text-gray-700 hover:bg-gray-50'
+                ? 'bg-[#1a4731] text-white'
+                : 'bg-white text-gray-600 hover:bg-gray-50 border border-[#e2ddd5]'
             }`}
           >
-            <FaArrowDown className="inline mr-2" />
+            <FaArrowDown size={13} />
             রাদ্দ (Radd)
           </button>
         </div>
 
         {/* Awl Content */}
         {selectedTab === 'awl' && (
-          <div className="space-y-6">
+          <div className="space-y-5">
             {/* Definition */}
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-              <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-                <FaBook className="text-red-600" />
-                আউল (عول) কী?
-              </h2>
-              <div className="bg-red-50 p-5 rounded-xl">
-                <p className="text-gray-800 leading-relaxed text-justify mb-3">
+            <div className="bg-white border border-[#e2ddd5] rounded-xl p-6 shadow-sm">
+              <div className="flex items-center gap-2 mb-4">
+                <FaBook className="text-[#c9a84c]" size={16} />
+                <h2 className="font-bold text-[#1a4731]">আউল (عول) কী?</h2>
+              </div>
+              <blockquote className="border-l-2 border-[#1a4731] pl-4 mb-3">
+                <p className="text-gray-700 text-sm leading-relaxed text-justify">
                   <strong>আউল</strong> শব্দের অর্থ "বৃদ্ধি" বা "বাড়ানো"। ফারায়েজে আউল বলা হয় যখন সব জাবিল ফুরুজের নির্ধারিত অংশ যোগ করলে ১ (পূর্ণ সম্পদ) এর বেশি হয়ে যায়।
                 </p>
-                <p className="text-gray-700 text-sm">
-                  <strong>উদাহরণ:</strong> স্বামী ১/২ + দুই বোন ২/৩ = ৩/৬ + ৪/৬ = ৭/৬ (১-এর বেশি!)
-                </p>
-              </div>
+              </blockquote>
+              <p className="text-gray-600 text-sm bg-[#f7f5f0] px-4 py-2 rounded-lg">
+                <strong>উদাহরণ:</strong> স্বামী ১/২ + দুই বোন ২/৩ = ৩/৬ + ৪/৬ = ৭/৬ (১-এর বেশি!)
+              </p>
             </div>
 
-            {/* History */}
-            <div className="bg-gradient-to-r from-amber-50 to-orange-50 p-6 rounded-2xl border-l-4 border-amber-500">
-              <h3 className="text-xl font-bold text-amber-900 mb-3">📜 ঐতিহাসিক প্রেক্ষাপট</h3>
-              <p className="text-amber-800 leading-relaxed mb-2">
+            {/* Historical note */}
+            <div className="border-l-4 border-[#c9a84c] bg-white rounded-xl p-5 shadow-sm border border-[#e2ddd5]">
+              <div className="flex items-center gap-2 mb-2">
+                <FaBook className="text-[#c9a84c]" size={14} />
+                <h3 className="font-bold text-[#1a4731] text-sm">ঐতিহাসিক প্রেক্ষাপট</h3>
+              </div>
+              <p className="text-gray-700 text-sm leading-relaxed mb-2">
                 আউল-এর সমাধান প্রথম দেন <strong>হযরত আলী (রাঃ)</strong>, হযরত উমর (রাঃ)-এর খিলাফতকালে।
               </p>
-              <p className="text-amber-700 text-sm">
+              <p className="text-gray-600 text-sm">
                 ঘটনা: একজন মহিলা মারা গেছে, ওয়ারিশ ছিল স্বামী + দুই সহোদর বোন। হযরত উমর (রাঃ) হযরত আলী (রাঃ)-কে জিজ্ঞাসা করলেন। তিনি বললেন: "বেস বাড়িয়ে দিন, সবার অংশ আনুপাতিক কমবে।"
               </p>
             </div>
 
             {/* Examples */}
             <div className="space-y-4">
-              <h3 className="text-xl font-bold text-gray-800">বাস্তব উদাহরণ</h3>
+              <h3 className="font-bold text-[#1a4731]">বাস্তব উদাহরণ</h3>
               {awlExamples.map((example, index) => (
-                <div key={index} className="bg-white p-6 rounded-2xl shadow-sm border-2 border-gray-100">
-                  <h4 className="text-lg font-bold text-red-700 mb-4">{example.title}</h4>
-                  
+                <div key={index} className="bg-white border border-[#e2ddd5] rounded-xl p-5 shadow-sm">
+                  <h4 className="font-bold text-[#1a4731] mb-4 text-sm">{example.title}</h4>
+
                   <div className="overflow-x-auto mb-4">
-                    <table className="w-full">
+                    <table className="w-full text-sm">
                       <thead>
-                        <tr className="bg-red-50">
-                          <th className="px-4 py-2 text-left text-sm">ওয়ারিশ</th>
-                          <th className="px-4 py-2 text-left text-sm">অংশ</th>
-                          <th className="px-4 py-2 text-left text-sm">বেস-এ</th>
+                        <tr className="border-b border-[#e2ddd5]">
+                          <th className="px-3 py-2 text-left text-gray-500 font-medium">ওয়ারিশ</th>
+                          <th className="px-3 py-2 text-left text-gray-500 font-medium">অংশ</th>
+                          <th className="px-3 py-2 text-left text-gray-500 font-medium">বেস-এ</th>
                           {example.calculation.isAwl && (
-                            <th className="px-4 py-2 text-left text-sm">আউল-এ</th>
+                            <th className="px-3 py-2 text-left text-gray-500 font-medium">আউল-এ</th>
                           )}
                         </tr>
                       </thead>
                       <tbody>
                         {example.heirs.map((heir, i) => (
-                          <tr key={i} className="border-t">
-                            <td className="px-4 py-2 font-bold">{heir.name}</td>
-                            <td className="px-4 py-2 text-gray-600">{heir.originalShare}</td>
-                            <td className="px-4 py-2 font-mono">{heir.originalParts}</td>
+                          <tr key={i} className="border-b border-[#e2ddd5] last:border-0">
+                            <td className="px-3 py-2 font-medium text-[#1a4731]">{heir.name}</td>
+                            <td className="px-3 py-2 text-gray-600">{heir.originalShare}</td>
+                            <td className="px-3 py-2 font-mono text-gray-700">{heir.originalParts}</td>
                             {example.calculation.isAwl && (
-                              <td className="px-4 py-2 font-mono text-red-600 font-bold">{heir.awlParts}</td>
+                              <td className="px-3 py-2 font-mono font-bold text-[#1a4731]">{heir.awlParts}</td>
                             )}
                           </tr>
                         ))}
-                        <tr className="border-t-2 border-gray-300 font-bold">
-                          <td className="px-4 py-2">মোট</td>
-                          <td className="px-4 py-2"></td>
-                          <td className="px-4 py-2 text-red-600">{example.calculation.total}/{example.calculation.base}</td>
+                        <tr className="border-t-2 border-[#e2ddd5]">
+                          <td className="px-3 py-2 font-bold text-[#1a4731]">মোট</td>
+                          <td className="px-3 py-2"></td>
+                          <td className="px-3 py-2 font-mono font-bold text-gray-700">{example.calculation.total}/{example.calculation.base}</td>
                           {example.calculation.isAwl && (
-                            <td className="px-4 py-2 text-green-600">{example.calculation.awlBase}/{example.calculation.awlBase}</td>
+                            <td className="px-3 py-2 font-mono font-bold text-[#1a4731]">{example.calculation.awlBase}/{example.calculation.awlBase}</td>
                           )}
                         </tr>
                       </tbody>
                     </table>
                   </div>
 
-                  <div className={`p-4 rounded-lg ${example.calculation.isAwl ? 'bg-red-50 border-l-4 border-red-500' : 'bg-green-50 border-l-4 border-green-500'}`}>
-                    <p className={`text-sm ${example.calculation.isAwl ? 'text-red-800' : 'text-green-800'}`}>
-                      <strong>{example.calculation.isAwl ? '⚠️ আউল হয়েছে:' : '✓ আউল হয়নি:'}</strong> {example.calculation.explanation}
-                    </p>
+                  <div className={`flex items-start gap-2 p-3 rounded-lg text-sm ${example.calculation.isAwl ? 'bg-amber-50 border-l-2 border-amber-400' : 'bg-[#e8f0eb] border-l-2 border-[#1a4731]'}`}>
+                    {example.calculation.isAwl ? (
+                      <FaArrowUp className="text-amber-600 flex-shrink-0 mt-0.5" size={12} />
+                    ) : (
+                      <FaCheckCircle className="text-[#1a4731] flex-shrink-0 mt-0.5" size={12} />
+                    )}
+                    <span className={example.calculation.isAwl ? 'text-amber-800' : 'text-[#1a4731]'}>
+                      <strong>{example.calculation.isAwl ? 'আউল হয়েছে:' : 'আউল হয়নি:'}</strong> {example.calculation.explanation}
+                    </span>
                   </div>
                 </div>
               ))}
             </div>
 
             {/* Key Points */}
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-2xl">
-              <h3 className="text-xl font-bold text-blue-900 mb-4 flex items-center gap-2">
-                <FaLightbulb className="text-blue-600" />
-                মূল পয়েন্ট
-              </h3>
+            <div className="bg-white border border-[#e2ddd5] rounded-xl p-5 shadow-sm">
+              <h3 className="font-bold text-[#1a4731] mb-3 text-sm">মূল পয়েন্ট</h3>
               <ul className="space-y-2">
-                <li className="flex items-start gap-2 text-blue-800">
-                  <span className="text-blue-600 font-bold">•</span>
-                  <span>আউল হলে <strong>সবার অংশ আনুপাতিক কমে যায়</strong></span>
-                </li>
-                <li className="flex items-start gap-2 text-blue-800">
-                  <span className="text-blue-600 font-bold">•</span>
-                  <span>বেস সংখ্যা বৃদ্ধি করে সমাধান করা হয়</span>
-                </li>
-                <li className="flex items-start gap-2 text-blue-800">
-                  <span className="text-blue-600 font-bold">•</span>
-                  <span>কোনো ওয়ারিশ সম্পূর্ণ বঞ্চিত হয় না</span>
-                </li>
-                <li className="flex items-start gap-2 text-blue-800">
-                  <span className="text-blue-600 font-bold">•</span>
-                  <span>সাহাবীদের ইজমা অনুযায়ী এটি সঠিক পদ্ধতি</span>
-                </li>
+                {[
+                  'আউল হলে সবার অংশ আনুপাতিক কমে যায়',
+                  'বেস সংখ্যা বৃদ্ধি করে সমাধান করা হয়',
+                  'কোনো ওয়ারিশ সম্পূর্ণ বঞ্চিত হয় না',
+                  'সাহাবীদের ইজমা অনুযায়ী এটি সঠিক পদ্ধতি'
+                ].map((point, i) => (
+                  <li key={i} className="flex items-start gap-2 text-gray-600 text-sm">
+                    <FaCheckCircle className="text-[#1a4731] flex-shrink-0 mt-0.5" size={12} />
+                    <span>{point}</span>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
@@ -249,93 +234,82 @@ const AwlRadd = () => {
 
         {/* Radd Content */}
         {selectedTab === 'radd' && (
-          <div className="space-y-6">
+          <div className="space-y-5">
             {/* Definition */}
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-              <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-                <FaBook className="text-green-600" />
-                রাদ্দ (رد) কী?
-              </h2>
-              <div className="bg-green-50 p-5 rounded-xl">
-                <p className="text-gray-800 leading-relaxed text-justify mb-3">
+            <div className="bg-white border border-[#e2ddd5] rounded-xl p-6 shadow-sm">
+              <div className="flex items-center gap-2 mb-4">
+                <FaBook className="text-[#c9a84c]" size={16} />
+                <h2 className="font-bold text-[#1a4731]">রাদ্দ (رد) কী?</h2>
+              </div>
+              <blockquote className="border-l-2 border-[#1a4731] pl-4 mb-3">
+                <p className="text-gray-700 text-sm leading-relaxed text-justify">
                   <strong>রাদ্দ</strong> শব্দের অর্থ "ফেরত দেওয়া"। ফারায়েজে রাদ্দ বলা হয় যখন জাবিল ফুরুজদের অংশ দেওয়ার পর সম্পদ উদ্বৃত্ত থাকে এবং কোনো আসাবা নেই।
                 </p>
-                <p className="text-gray-700 text-sm">
-                  <strong>উদাহরণ:</strong> মা ১/৬ + এক মেয়ে ১/২ = ১/৬ + ৩/৬ = ৪/৬। বাকি ২/৬ কী হবে?
-                </p>
-              </div>
+              </blockquote>
+              <p className="text-gray-600 text-sm bg-[#f7f5f0] px-4 py-2 rounded-lg">
+                <strong>উদাহরণ:</strong> মা ১/৬ + এক মেয়ে ১/২ = ১/৬ + ৩/৬ = ৪/৬। বাকি ২/৬ কী হবে?
+              </p>
             </div>
 
-            {/* Rules */}
-            <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-2xl border-l-4 border-purple-500">
-              <h3 className="text-xl font-bold text-purple-900 mb-3">📋 রাদ্দের শর্ত</h3>
-              <ul className="space-y-2">
-                <li className="flex items-start gap-2 text-purple-800">
-                  <span className="text-purple-600 font-bold">১.</span>
-                  <span>জাবিল ফুরুজ থাকতে হবে</span>
-                </li>
-                <li className="flex items-start gap-2 text-purple-800">
-                  <span className="text-purple-600 font-bold">২.</span>
-                  <span>কোনো আসাবা থাকবে না</span>
-                </li>
-                <li className="flex items-start gap-2 text-purple-800">
-                  <span className="text-purple-600 font-bold">৩.</span>
-                  <span><strong>স্বামী/স্ত্রী রাদ্দ পায় না</strong> (তারা থাকলে তাদের ছাড়া বাকিদের মধ্যে রাদ্দ)</span>
-                </li>
-                <li className="flex items-start gap-2 text-purple-800">
-                  <span className="text-purple-600 font-bold">৪.</span>
-                  <span>উদ্বৃত্ত সম্পদ আনুপাতিক ভাগ হবে</span>
-                </li>
-              </ul>
+            {/* Conditions */}
+            <div className="border-l-4 border-[#c9a84c] bg-white rounded-xl p-5 shadow-sm border border-[#e2ddd5]">
+              <h3 className="font-bold text-[#1a4731] text-sm mb-3">রাদ্দের শর্ত</h3>
+              <ol className="space-y-2">
+                {[
+                  'জাবিল ফুরুজ থাকতে হবে',
+                  'কোনো আসাবা থাকবে না',
+                  'স্বামী/স্ত্রী রাদ্দ পায় না (তারা থাকলে তাদের ছাড়া বাকিদের মধ্যে রাদ্দ)',
+                  'উদ্বৃত্ত সম্পদ আনুপাতিক ভাগ হবে'
+                ].map((cond, i) => (
+                  <li key={i} className="flex items-start gap-2 text-gray-600 text-sm">
+                    <span className="text-[#1a4731] font-bold flex-shrink-0">{i + 1}.</span>
+                    <span>{cond}</span>
+                  </li>
+                ))}
+              </ol>
             </div>
 
             {/* Examples */}
             <div className="space-y-4">
-              <h3 className="text-xl font-bold text-gray-800">বাস্তব উদাহরণ</h3>
+              <h3 className="font-bold text-[#1a4731]">বাস্তব উদাহরণ</h3>
               {raddExamples.map((example, index) => (
-                <div key={index} className="bg-white p-6 rounded-2xl shadow-sm border-2 border-gray-100">
-                  <h4 className="text-lg font-bold text-green-700 mb-2">{example.title}</h4>
+                <div key={index} className="bg-white border border-[#e2ddd5] rounded-xl p-5 shadow-sm">
+                  <h4 className="font-bold text-[#1a4731] mb-2 text-sm">{example.title}</h4>
                   <p className="text-gray-600 text-sm mb-4">{example.scenario}</p>
-                  
-                  <div className="bg-gray-50 p-4 rounded-lg mb-4">
-                    <p className="text-sm text-gray-700 mb-1">
-                      <strong>মোট সম্পদ:</strong> {example.totalAssets} টাকা
-                    </p>
-                    <p className="text-sm text-gray-700 mb-1">
-                      <strong>উদ্বৃত্ত:</strong> {example.surplus} টাকা
-                    </p>
-                    <p className="text-sm text-gray-700">
-                      <strong>রাদ্দ পদ্ধতি:</strong> {example.raddMethod}
-                    </p>
+
+                  <div className="bg-[#f7f5f0] rounded-lg p-3 mb-4 text-sm space-y-1">
+                    <p className="text-gray-700"><span className="font-medium">মোট সম্পদ:</span> {example.totalAssets} টাকা</p>
+                    <p className="text-gray-700"><span className="font-medium">উদ্বৃত্ত:</span> {example.surplus} টাকা</p>
+                    <p className="text-gray-700"><span className="font-medium">রাদ্দ পদ্ধতি:</span> {example.raddMethod}</p>
                   </div>
 
                   <div className="overflow-x-auto mb-4">
                     <table className="w-full text-sm">
                       <thead>
-                        <tr className="bg-green-50">
-                          <th className="px-3 py-2 text-left">ওয়ারিশ</th>
-                          <th className="px-3 py-2 text-left">অংশ</th>
-                          <th className="px-3 py-2 text-left">আসল</th>
-                          <th className="px-3 py-2 text-left">রাদ্দ</th>
-                          <th className="px-3 py-2 text-left">মোট</th>
+                        <tr className="border-b border-[#e2ddd5]">
+                          <th className="px-3 py-2 text-left text-gray-500 font-medium">ওয়ারিশ</th>
+                          <th className="px-3 py-2 text-left text-gray-500 font-medium">অংশ</th>
+                          <th className="px-3 py-2 text-left text-gray-500 font-medium">আসল</th>
+                          <th className="px-3 py-2 text-left text-gray-500 font-medium">রাদ্দ</th>
+                          <th className="px-3 py-2 text-left text-gray-500 font-medium">মোট</th>
                         </tr>
                       </thead>
                       <tbody>
                         {example.heirs.map((heir, i) => (
-                          <tr key={i} className="border-t">
-                            <td className="px-3 py-2 font-bold">{heir.name}</td>
-                            <td className="px-3 py-2">{heir.originalShare}</td>
-                            <td className="px-3 py-2 font-mono">{heir.originalAmount}</td>
-                            <td className="px-3 py-2 font-mono text-green-600">{heir.raddAmount}</td>
-                            <td className="px-3 py-2 font-mono font-bold text-blue-600">{heir.total}</td>
+                          <tr key={i} className="border-b border-[#e2ddd5] last:border-0">
+                            <td className="px-3 py-2 font-medium text-[#1a4731]">{heir.name}</td>
+                            <td className="px-3 py-2 text-gray-600">{heir.originalShare}</td>
+                            <td className="px-3 py-2 font-mono text-gray-700">{heir.originalAmount}</td>
+                            <td className="px-3 py-2 font-mono text-[#1a4731]">{heir.raddAmount}</td>
+                            <td className="px-3 py-2 font-mono font-bold text-[#1a4731]">{heir.total}</td>
                           </tr>
                         ))}
                       </tbody>
                     </table>
                   </div>
 
-                  <div className="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
-                    <p className="text-sm text-green-800">
+                  <div className="border-l-2 border-[#1a4731] pl-3 bg-[#e8f0eb] py-2 pr-3 rounded-r-lg">
+                    <p className="text-[#1a4731] text-sm">
                       <strong>ব্যাখ্যা:</strong> {example.explanation}
                     </p>
                   </div>
@@ -344,32 +318,25 @@ const AwlRadd = () => {
             </div>
 
             {/* Key Points */}
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-2xl">
-              <h3 className="text-xl font-bold text-blue-900 mb-4 flex items-center gap-2">
-                <FaLightbulb className="text-blue-600" />
-                মূল পয়েন্ট
-              </h3>
+            <div className="bg-white border border-[#e2ddd5] rounded-xl p-5 shadow-sm">
+              <h3 className="font-bold text-[#1a4731] mb-3 text-sm">মূল পয়েন্ট</h3>
               <ul className="space-y-2">
-                <li className="flex items-start gap-2 text-blue-800">
-                  <span className="text-blue-600 font-bold">•</span>
-                  <span>রাদ্দ মানে <strong>উদ্বৃত্ত ফেরত দেওয়া</strong></span>
-                </li>
-                <li className="flex items-start gap-2 text-blue-800">
-                  <span className="text-blue-600 font-bold">•</span>
-                  <span>শুধু জাবিল ফুরুজদের মধ্যে (আসাবা না থাকলে)</span>
-                </li>
-                <li className="flex items-start gap-2 text-blue-800">
-                  <span className="text-blue-600 font-bold">•</span>
-                  <span>স্বামী/স্ত্রী রাদ্দ পায় না</span>
-                </li>
-                <li className="flex items-start gap-2 text-blue-800">
-                  <span className="text-blue-600 font-bold">•</span>
-                  <span>আনুপাতিক হিসাবে ভাগ হয়</span>
-                </li>
+                {[
+                  'রাদ্দ মানে উদ্বৃত্ত ফেরত দেওয়া',
+                  'শুধু জাবিল ফুরুজদের মধ্যে (আসাবা না থাকলে)',
+                  'স্বামী/স্ত্রী রাদ্দ পায় না',
+                  'আনুপাতিক হিসাবে ভাগ হয়'
+                ].map((point, i) => (
+                  <li key={i} className="flex items-start gap-2 text-gray-600 text-sm">
+                    <FaCheckCircle className="text-[#1a4731] flex-shrink-0 mt-0.5" size={12} />
+                    <span>{point}</span>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
         )}
+
       </div>
     </div>
   );

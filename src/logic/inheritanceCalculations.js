@@ -57,8 +57,15 @@ export const calculateInheritance = (waris) => {
   // ============================================
   if (waris.shami) {
     res.push({ name: "স্বামী", n: 1, d: hasChildren ? 4 : 2 });
-  } else if (waris.stri) {
-    res.push({ name: "স্ত্রী", n: 1, d: hasChildren ? 8 : 4 });
+  } else if (waris.stri > 0) {
+    // একাধিক স্ত্রীর ক্ষেত্রে সবাই মিলে ভাগ করবে
+    const totalShare = hasChildren ? 8 : 4;
+    const sharePerWife = totalShare * waris.stri;
+    res.push({ 
+      name: waris.stri > 1 ? `স্ত্রী (${waris.stri} জন)` : "স্ত্রী", 
+      n: 1, 
+      d: sharePerWife 
+    });
   }
 
   // ============================================
@@ -153,7 +160,7 @@ export const calculateInheritance = (waris) => {
     // সন্তান না থাকলে এবং ভাই-বোন ২ জনের কম থাকলে
     if (!hasChildren && totalSiblings < 2) {
       // গারাভাইন মাসআলা (উমারিয়া) - স্বামী/স্ত্রী ও পিতা থাকলে
-      if (waris.pita && (waris.shami || waris.stri)) {
+      if (waris.pita && (waris.shami || waris.stri > 0)) {
         n = 1;
         d = waris.shami ? 6 : 4;
         label = " (অবশিষ্টাংশের ১/৩)";
@@ -283,7 +290,7 @@ export const calculateInheritance = (waris) => {
   // রাদ্দ: আসাবা নেই এবং সম্পদ উদ্বৃত্ত থাকলে
   if (asabaList.length === 0 && currentFixedNumerator < base) {
     let raddHolders = res.filter(
-      (s) => s.name !== "স্বামী" && s.name !== "স্ত্রী"
+      (s) => s.name !== "স্বামী" && !s.name.startsWith("স্ত্রী")
     );
     
     if (raddHolders.length > 0) {
@@ -294,7 +301,7 @@ export const calculateInheritance = (waris) => {
       let surplus = base - currentFixedNumerator;
       
       res = res.map((s) => {
-        if (s.name === "স্বামী" || s.name === "স্ত্রী") return s;
+        if (s.name === "স্বামী" || s.name.startsWith("স্ত্রী")) return s;
         return {
           ...s,
           extra: (((base / s.d) * s.n) / raddTotalNum) * surplus,
@@ -400,6 +407,11 @@ export const validateInputs = (waris, assets) => {
       errors.push(`${key} এর মূল্য ঋণাত্মক হতে পারবে না`);
     }
   });
+
+  // স্ত্রী সর্বোচ্চ ৪ জন
+  if (waris.stri > 4) {
+    errors.push("ইসলামী আইন অনুযায়ী সর্বোচ্চ ৪ জন স্ত্রী হতে পারে");
+  }
 
   return {
     isValid: errors.length === 0,

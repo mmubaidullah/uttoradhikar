@@ -1,7 +1,6 @@
-import React from 'react';
 import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from 'recharts';
 
-const COLORS = ['#059669', '#10b981', '#34d399', '#6ee7b7', '#a7f3d0', '#0d9488', '#14b8a6', '#2dd4bf'];
+const COLORS = ['#1a4731', '#c9a84c', '#2d6a4f', '#e4b55e', '#40916c', '#f0c87a', '#52b788', '#b7941e'];
 
 const InheritanceChart = ({ results }) => {
   // Convert Bengali numerals to English for calculation
@@ -16,23 +15,22 @@ const InheritanceChart = ({ results }) => {
 
   // Prepare data for chart
   const chartData = results
-    .filter(r => r.taka && r.taka !== '০') // Exclude those with 0 amount
+    .filter(r => r.taka && r.taka !== '০')
     .map(r => {
       const amountStr = bengaliToEnglish(r.taka.replace(/,/g, ''));
       const value = parseFloat(amountStr) || 0;
-      
       return {
         name: r.name,
         value: value,
         percentage: r.share || ''
       };
     })
-    .filter(d => d.value > 0); // Only include positive values
+    .filter(d => d.value > 0);
 
   if (chartData.length === 0) {
     return (
-      <div className="bg-white p-8 rounded-2xl border-2 border-gray-100 text-center">
-        <p className="text-gray-500">কোনো ডাটা নেই চার্ট দেখানোর জন্য</p>
+      <div className="bg-white border border-[#e2ddd5] rounded-xl p-8 text-center">
+        <p className="text-gray-500 text-sm">কোনো ডাটা নেই চার্ট দেখানোর জন্য</p>
       </div>
     );
   }
@@ -40,13 +38,13 @@ const InheritanceChart = ({ results }) => {
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-white p-4 rounded-xl shadow-lg border-2 border-emerald-100">
-          <p className="font-bold text-gray-800 mb-2">{payload[0].name}</p>
-          <p className="text-emerald-600 font-semibold">
+        <div className="bg-white p-3 rounded-xl shadow-sm border border-[#e2ddd5]">
+          <p className="font-bold text-[#1a4731] text-sm mb-1">{payload[0].name}</p>
+          <p className="text-[#1a4731] font-semibold text-sm">
             {payload[0].value.toLocaleString('bn-BD')} টাকা
           </p>
           {payload[0].payload.percentage && (
-            <p className="text-gray-600 text-sm mt-1">
+            <p className="text-gray-500 text-xs mt-1">
               অংশ: {payload[0].payload.percentage}
             </p>
           )}
@@ -58,14 +56,14 @@ const InheritanceChart = ({ results }) => {
 
   const CustomLegend = ({ payload }) => {
     return (
-      <div className="flex flex-wrap justify-center gap-4 mt-6">
+      <div className="flex flex-wrap justify-center gap-3 mt-4">
         {payload.map((entry, index) => (
-          <div key={index} className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded-lg">
-            <div 
-              className="w-4 h-4 rounded" 
+          <div key={index} className="flex items-center gap-1.5 bg-[#f7f5f0] px-3 py-1.5 rounded-lg">
+            <div
+              className="w-3 h-3 rounded-sm flex-shrink-0"
               style={{ backgroundColor: entry.color }}
             />
-            <span className="text-sm font-medium text-gray-700">{entry.value}</span>
+            <span className="text-sm text-gray-700 font-medium">{entry.value}</span>
           </div>
         ))}
       </div>
@@ -78,7 +76,7 @@ const InheritanceChart = ({ results }) => {
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
-    if (percent < 0.05) return null; // Don't show label for very small slices
+    if (percent < 0.05) return null;
 
     return (
       <text
@@ -87,7 +85,8 @@ const InheritanceChart = ({ results }) => {
         fill="white"
         textAnchor={x > cx ? 'start' : 'end'}
         dominantBaseline="central"
-        className="font-bold text-sm"
+        fontSize={13}
+        fontWeight="bold"
       >
         {`${(percent * 100).toFixed(0)}%`}
       </text>
@@ -95,16 +94,16 @@ const InheritanceChart = ({ results }) => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-emerald-50 to-teal-50 p-6 md:p-8 rounded-2xl border-2 border-emerald-100">
-      <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center flex items-center justify-center gap-3">
-        <svg className="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div className="bg-white border border-[#e2ddd5] rounded-xl p-6 shadow-sm">
+      <h3 className="font-bold text-[#1a4731] text-base mb-6 text-center flex items-center justify-center gap-2">
+        <svg className="w-5 h-5 text-[#c9a84c]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
         </svg>
         বন্টন চার্ট
       </h3>
 
-      <ResponsiveContainer width="100%" height={400}>
+      <ResponsiveContainer width="100%" height={380}>
         <PieChart>
           <Pie
             data={chartData}
@@ -113,7 +112,7 @@ const InheritanceChart = ({ results }) => {
             labelLine={false}
             label={CustomLabel}
             outerRadius={150}
-            fill="#8884d8"
+            fill="#1a4731"
             dataKey="value"
           >
             {chartData.map((entry, index) => (
@@ -126,17 +125,17 @@ const InheritanceChart = ({ results }) => {
       </ResponsiveContainer>
 
       {/* Stats Summary */}
-      <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="mt-5 grid grid-cols-2 md:grid-cols-4 gap-3">
         {chartData.map((item, index) => (
-          <div key={index} className="bg-white p-4 rounded-xl border border-gray-200">
-            <div 
-              className="w-3 h-3 rounded-full mb-2" 
+          <div key={index} className="bg-[#f7f5f0] border border-[#e2ddd5] p-3 rounded-xl">
+            <div
+              className="w-2.5 h-2.5 rounded-sm mb-2"
               style={{ backgroundColor: COLORS[index % COLORS.length] }}
             />
-            <div className="text-xs text-gray-600 mb-1">{item.name}</div>
-            <div className="font-bold text-gray-800">{item.value.toLocaleString('bn-BD')} ৳</div>
+            <div className="text-xs text-gray-500 mb-1">{item.name}</div>
+            <div className="font-bold text-[#1a4731] text-sm">{item.value.toLocaleString('bn-BD')} ৳</div>
             {item.percentage && (
-              <div className="text-xs text-gray-500 mt-1">{item.percentage}</div>
+              <div className="text-xs text-gray-400 mt-0.5">{item.percentage}</div>
             )}
           </div>
         ))}

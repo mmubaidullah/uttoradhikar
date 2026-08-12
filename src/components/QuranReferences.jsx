@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { FaQuran, FaBookOpen, FaSearch, FaCopy, FaCheck } from 'react-icons/fa';
+import { useState } from 'react';
+import { FaQuran, FaBookOpen, FaSearch, FaCopy, FaCheck, FaChevronDown } from 'react-icons/fa';
 
 const QuranReferences = () => {
   const [selectedAyah, setSelectedAyah] = useState(null);
@@ -67,154 +67,155 @@ const QuranReferences = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] p-4 md:p-8">
+    <div className="min-h-screen bg-[#f7f5f0] py-8 px-4">
       <div className="max-w-6xl mx-auto">
-        {/* Hero Section */}
-        <div className="bg-gradient-to-br from-emerald-800 to-teal-900 text-white p-8 md:p-12 rounded-[2rem] shadow-xl mb-8">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-              <FaQuran size={32} className="text-emerald-300" />
-            </div>
-            <div>
-              <h1 className="text-3xl md:text-4xl font-black tracking-tight">
-                কুরআনে উত্তরাধিকার
-              </h1>
-              <p className="text-emerald-100/80 text-sm mt-1">
-                মীরাস সংক্রান্ত সম্পূর্ণ আয়াত ও তাফসীর
-              </p>
-            </div>
-          </div>
 
-          <div className="bg-white/10 backdrop-blur-sm p-4 rounded-xl border border-white/20 mt-6">
-            <p className="text-sm text-emerald-50 leading-relaxed">
-              <strong>গুরুত্ব:</strong> রাসূলুল্লাহ (ﷺ) বলেছেন: "তোমরা ফারায়েজ শিখো এবং মানুষকে শেখাও। 
-              কারণ এটি জ্ঞানের অর্ধেক।" (সুনানে তিরমিযী: ২০৯৬)
-            </p>
-          </div>
+        {/* Breadcrumb */}
+        <div className="flex items-center gap-2 text-[#1a4731]/60 text-sm mb-6">
+          <span>হোম</span>
+          <span>/</span>
+          <span className="text-[#1a4731] font-medium">কুরআনে উত্তরাধিকার</span>
         </div>
 
-        {/* Search Box */}
-        <div className="bg-white p-4 rounded-2xl shadow-sm mb-8 border border-gray-100">
+        {/* Page Header */}
+        <div className="mb-8">
+          <div className="flex items-center gap-3 mb-2">
+            <FaQuran className="text-[#c9a84c]" size={24} />
+            <h1 className="text-2xl font-bold text-[#1a4731]">কুরআনে উত্তরাধিকার</h1>
+          </div>
+          <p className="text-gray-600 text-sm">মীরাস সংক্রান্ত সম্পূর্ণ আয়াত ও তাফসীর — সূরা নিসা</p>
+        </div>
+
+        {/* Search Bar */}
+        <div className="bg-white border border-[#e2ddd5] rounded-xl p-4 mb-6 shadow-sm">
           <div className="relative">
-            <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+            <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={14} />
             <input
               type="text"
               placeholder="আয়াত, ওয়ারিশ বা ক্যাটাগরি খুঁজুন..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full pl-10 pr-4 py-2.5 border border-[#e2ddd5] rounded-lg text-sm focus:outline-none focus:border-[#1a4731] bg-white"
             />
           </div>
         </div>
 
-        {/* Statistics */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        {/* Stats row */}
+        <div className="grid grid-cols-4 gap-3 mb-8">
           {[
-            { label: 'মোট আয়াত', value: '৪', color: 'emerald' },
-            { label: 'সূরা', value: '১', color: 'teal' },
-            { label: 'জাবিল ফুরুজ', value: '১২', color: 'blue' },
-            { label: 'ক্যাটাগরি', value: '৪', color: 'amber' }
+            { label: 'মোট আয়াত', value: '৪' },
+            { label: 'সূরা', value: '১' },
+            { label: 'জাবিল ফুরুজ', value: '১২' },
+            { label: 'ক্যাটাগরি', value: '৪' },
           ].map((stat, i) => (
-            <div key={i} className={`bg-${stat.color}-50 p-4 rounded-xl border border-${stat.color}-100`}>
-              <div className={`text-2xl font-bold text-${stat.color}-700`}>{stat.value}</div>
-              <div className="text-sm text-gray-600">{stat.label}</div>
+            <div key={i} className="bg-white border border-[#e2ddd5] rounded-xl p-4 shadow-sm text-center">
+              <div className="text-xl font-bold text-[#1a4731]">{stat.value}</div>
+              <div className="text-gray-600 text-xs mt-1">{stat.label}</div>
             </div>
           ))}
         </div>
 
         {/* Ayah Cards */}
-        <div className="space-y-6">
+        <div className="space-y-4">
           {filteredAyahs.map((ayah) => (
             <div
               key={ayah.id}
-              className={`bg-white rounded-[2rem] shadow-sm border transition-all ${
-                selectedAyah === ayah.id ? 'border-emerald-500 shadow-lg' : 'border-gray-100'
+              className={`bg-white border rounded-xl shadow-sm transition-all ${
+                selectedAyah === ayah.id ? 'border-[#1a4731]' : 'border-[#e2ddd5]'
               }`}
             >
-              {/* Card Header */}
+              {/* Card Header — always visible */}
               <div
-                className="p-6 cursor-pointer hover:bg-gray-50 rounded-t-[2rem] transition-colors"
+                className="p-5 cursor-pointer"
                 onClick={() => setSelectedAyah(selectedAyah === ayah.id ? null : ayah.id)}
               >
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-emerald-600 text-white rounded-xl flex items-center justify-center font-bold">
+                <div className="flex items-start justify-between gap-3 mb-4">
+                  <div className="flex items-start gap-3 flex-1">
+                    <div className="w-9 h-9 bg-[#1a4731] text-white rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0">
                       {ayah.ayahNumber}
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-gray-800">{ayah.surah}: {ayah.ayahNumber}</h3>
+                      <h3 className="font-bold text-[#1a4731] text-base">
+                        {ayah.surah}: আয়াত {ayah.ayahNumber}
+                      </h3>
                       <div className="flex flex-wrap gap-2 mt-2">
-                        <span className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold">
+                        <span className="bg-[#1a4731]/8 text-[#1a4731] px-2.5 py-0.5 rounded-full text-xs font-medium">
                           {ayah.category}
                         </span>
                         {ayah.heirs.map((heir, i) => (
-                          <span key={i} className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs">
+                          <span key={i} className="bg-gray-100 text-gray-600 px-2.5 py-0.5 rounded-full text-xs">
                             {heir}
                           </span>
                         ))}
                       </div>
                     </div>
                   </div>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      copyToClipboard(ayah.arabic + '\n\n' + ayah.bangla, ayah.id);
-                    }}
-                    className="p-2 hover:bg-emerald-50 rounded-lg transition-colors"
-                  >
-                    {copiedId === ayah.id ? (
-                      <FaCheck className="text-emerald-600" />
-                    ) : (
-                      <FaCopy className="text-gray-400" />
-                    )}
-                  </button>
+
+                  <div className="flex items-center gap-2 flex-shrink-0">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        copyToClipboard(ayah.arabic + '\n\n' + ayah.bangla, ayah.id);
+                      }}
+                      className="p-2 hover:bg-[#f7f5f0] rounded-lg transition-colors"
+                      title="কপি করুন"
+                    >
+                      {copiedId === ayah.id ? (
+                        <FaCheck className="text-[#1a4731]" size={13} />
+                      ) : (
+                        <FaCopy className="text-gray-400" size={13} />
+                      )}
+                    </button>
+                    <FaChevronDown
+                      className={`text-gray-400 transition-transform ${selectedAyah === ayah.id ? 'rotate-180' : ''}`}
+                      size={14}
+                    />
+                  </div>
                 </div>
 
                 {/* Arabic Text */}
-                <div className="bg-amber-50 p-6 rounded-xl border border-amber-100 mb-4">
-                  <p className="arabic-text text-right text-amber-900 leading-loose">
+                <div className="bg-[#f7f5f0] p-5 rounded-lg mb-3">
+                  <p className="arabic-text text-right text-[#1a4731] leading-loose text-lg">
                     {ayah.arabic}
                   </p>
                 </div>
 
-                {/* Bangla Translation */}
-                <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-100">
-                  <p className="text-emerald-900 text-justify leading-relaxed">
-                    <strong>অনুবাদ:</strong> {ayah.bangla}
-                  </p>
-                </div>
+                {/* Bengali Translation */}
+                <p className="text-gray-700 text-sm leading-relaxed">
+                  <span className="font-medium text-[#1a4731]">অনুবাদ:</span> {ayah.bangla}
+                </p>
               </div>
 
               {/* Expanded Content */}
               {selectedAyah === ayah.id && (
-                <div className="p-6 pt-0 border-t border-gray-100 animate-in fade-in slide-in-from-top-4">
-                  {/* Tafsir */}
-                  <div className="bg-blue-50 p-6 rounded-xl border border-blue-100 mb-4">
-                    <div className="flex items-center gap-2 mb-3">
-                      <FaBookOpen className="text-blue-600" />
-                      <h4 className="font-bold text-blue-900">সংক্ষিপ্ত তাফসীর</h4>
+                <div className="px-5 pb-5 border-t border-[#e2ddd5]">
+                  <div className="pt-4 space-y-4">
+                    {/* Tafsir */}
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <FaBookOpen className="text-[#c9a84c]" size={14} />
+                        <h4 className="font-bold text-[#1a4731] text-sm">সংক্ষিপ্ত তাফসীর</h4>
+                      </div>
+                      <p className="text-gray-600 text-sm leading-relaxed text-justify">
+                        {ayah.tafsir}
+                      </p>
                     </div>
-                    <p className="text-blue-900 text-justify leading-relaxed text-sm">
-                      {ayah.tafsir}
-                    </p>
-                  </div>
 
-                  {/* Explanation */}
-                  <div className="bg-purple-50 p-4 rounded-xl border border-purple-100 mb-4">
-                    <p className="text-purple-900 text-sm">
-                      <strong>ব্যাখ্যা:</strong> {ayah.explanation}
-                    </p>
-                  </div>
+                    {/* Explanation */}
+                    <blockquote className="border-l-2 border-[#c9a84c] pl-4 py-1">
+                      <p className="text-gray-600 text-sm italic">{ayah.explanation}</p>
+                    </blockquote>
 
-                  {/* Related Heirs */}
-                  <div className="bg-gray-50 p-4 rounded-xl">
-                    <h4 className="font-bold text-gray-800 mb-3 text-sm">সংশ্লিষ্ট ওয়ারিশ:</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {ayah.heirs.map((heir, i) => (
-                        <span key={i} className="bg-white border border-gray-200 px-4 py-2 rounded-lg text-sm font-medium text-gray-700">
-                          {heir}
-                        </span>
-                      ))}
+                    {/* Related Heirs */}
+                    <div>
+                      <h4 className="font-medium text-[#1a4731] text-sm mb-2">সংশ্লিষ্ট ওয়ারিশ:</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {ayah.heirs.map((heir, i) => (
+                          <span key={i} className="bg-[#e8f0eb] text-[#1a4731] px-3 py-1 rounded-lg text-xs font-medium">
+                            {heir}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -225,28 +226,29 @@ const QuranReferences = () => {
 
         {/* No Results */}
         {filteredAyahs.length === 0 && (
-          <div className="text-center py-12">
-            <div className="text-6xl mb-4">📖</div>
-            <h3 className="text-xl font-bold text-gray-700 mb-2">কোনো ফলাফল পাওয়া যায়নি</h3>
-            <p className="text-gray-500">অন্য শব্দ দিয়ে খুঁজে দেখুন</p>
+          <div className="text-center py-12 bg-white border border-[#e2ddd5] rounded-xl">
+            <FaQuran className="text-gray-300 mx-auto mb-4" size={48} />
+            <h3 className="font-bold text-[#1a4731] mb-1">কোনো ফলাফল পাওয়া যায়নি</h3>
+            <p className="text-gray-600 text-sm">অন্য শব্দ দিয়ে খুঁজে দেখুন</p>
           </div>
         )}
 
         {/* Footer Note */}
-        <div className="mt-12 bg-white p-6 rounded-2xl border border-gray-100">
-          <div className="flex items-start gap-4">
-            <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0">
-              <FaBookOpen className="text-amber-600" size={20} />
+        <div className="mt-8 bg-white border border-[#e2ddd5] rounded-xl p-5 shadow-sm">
+          <div className="flex items-start gap-3">
+            <div className="w-9 h-9 bg-[#1a4731]/8 rounded-lg flex items-center justify-center flex-shrink-0">
+              <FaBookOpen className="text-[#1a4731]" size={14} />
             </div>
             <div>
-              <h4 className="font-bold text-gray-800 mb-2">তাফসীর সূত্র</h4>
-              <p className="text-sm text-gray-600 leading-relaxed">
-                এই পেজের তাফসীর তাফসীরে ইবনে কাসীর, তাফসীরে জালালাইন এবং মাআরিফুল কুরআন থেকে সংকলিত। 
+              <h4 className="font-bold text-[#1a4731] text-sm mb-1">তাফসীর সূত্র</h4>
+              <p className="text-gray-600 text-xs leading-relaxed">
+                এই পেজের তাফসীর তাফসীরে ইবনে কাসীর, তাফসীরে জালালাইন এবং মাআরিফুল কুরআন থেকে সংকলিত।
                 বিস্তারিত জানতে নির্ভরযোগ্য তাফসীর গ্রন্থ দেখুন।
               </p>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   );

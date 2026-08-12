@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FaBook, FaUsers, FaCalculator, FaCheckCircle, FaLightbulb } from 'react-icons/fa';
 
 const CaseStudies = () => {
@@ -13,12 +13,7 @@ const CaseStudies = () => {
       scenario: {
         deceased: 'জনাব আবদুল্লাহ (মৃত)',
         assets: '১০,০০,০০০ টাকা',
-        heirs: [
-          'স্ত্রী - আমিনা',
-          'ছেলে - মুহাম্মদ',
-          'ছেলে - আহমদ',
-          'মেয়ে - ফাতিমা'
-        ]
+        heirs: ['স্ত্রী - আমিনা', 'ছেলে - মুহাম্মদ', 'ছেলে - আহমদ', 'মেয়ে - ফাতিমা']
       },
       solution: {
         step1: {
@@ -58,16 +53,11 @@ const CaseStudies = () => {
       id: 2,
       title: 'শুধু মেয়ে - কোনো ছেলে নেই',
       difficulty: 'মাঝারি',
-      difficultyColor: 'yellow',
+      difficultyColor: 'amber',
       scenario: {
         deceased: 'জনাবা খাদিজা (মৃত)',
         assets: '৬,০০,০০০ টাকা',
-        heirs: [
-          'স্বামী - ইউসুফ',
-          'মেয়ে - মারিয়াম',
-          'মেয়ে - আয়েশা',
-          'বাবা - আলী'
-        ]
+        heirs: ['স্বামী - ইউসুফ', 'মেয়ে - মারিয়াম', 'মেয়ে - আয়েশা', 'বাবা - আলী']
       },
       solution: {
         step1: {
@@ -118,14 +108,11 @@ const CaseStudies = () => {
       id: 3,
       title: 'রাদ্দ - সম্পদ উদ্বৃত্ত',
       difficulty: 'মাঝারি',
-      difficultyColor: 'yellow',
+      difficultyColor: 'amber',
       scenario: {
         deceased: 'জনাব ইব্রাহীম (মৃত)',
         assets: '১২,০০,০০০ টাকা',
-        heirs: [
-          'মা - সালমা',
-          'মেয়ে - রুকাইয়া'
-        ]
+        heirs: ['মা - সালমা', 'মেয়ে - রুকাইয়া']
       },
       solution: {
         step1: {
@@ -186,11 +173,7 @@ const CaseStudies = () => {
       scenario: {
         deceased: 'জনাবা জয়নব (মৃত, কোনো সন্তান নেই)',
         assets: '১৮,০০,০০০ টাকা',
-        heirs: [
-          'স্বামী - উমর',
-          'বাবা - হাসান',
-          'মা - খালিদা'
-        ]
+        heirs: ['স্বামী - উমর', 'বাবা - হাসান', 'মা - খালিদা']
       },
       solution: {
         step1: {
@@ -240,12 +223,7 @@ const CaseStudies = () => {
       scenario: {
         deceased: 'জনাব রশিদ (মৃত)',
         assets: '২৪,০০,০০০ টাকা',
-        heirs: [
-          'স্ত্রী - নাজমা',
-          'মেয়ে - সুমাইয়া',
-          'মেয়ে - হাবিবা',
-          'সহোদর বোন - আসমা'
-        ]
+        heirs: ['স্ত্রী - নাজমা', 'মেয়ে - সুমাইয়া', 'মেয়ে - হাবিবা', 'সহোদর বোন - আসমা']
       },
       solution: {
         step1: {
@@ -293,197 +271,203 @@ const CaseStudies = () => {
     }
   ];
 
-  const getDifficultyBadge = (difficulty, color) => {
-    const colors = {
-      green: 'bg-green-100 text-green-700 border-green-300',
-      yellow: 'bg-yellow-100 text-yellow-700 border-yellow-300',
-      red: 'bg-red-100 text-red-700 border-red-300'
+  const difficultyStyle = (color) => {
+    const styles = {
+      green: 'bg-[#e8f0eb] text-[#1a4731]',
+      amber: 'bg-amber-100 text-amber-700',
+      red: 'bg-red-100 text-red-700'
     };
-    return (
-      <span className={`px-3 py-1 rounded-full text-xs font-bold border-2 ${colors[color]}`}>
-        {difficulty}
-      </span>
-    );
+    return styles[color] || styles.green;
   };
 
   const currentCase = cases[selectedCase];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-purple-50 p-4 md:p-8">
+    <div className="min-h-screen bg-[#f7f5f0] py-8 px-4">
       <div className="max-w-6xl mx-auto">
-        {/* Hero */}
-        <div className="bg-gradient-to-br from-purple-800 to-indigo-900 text-white p-8 md:p-12 rounded-[2rem] shadow-2xl mb-8">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-              <FaBook size={32} className="text-purple-300" />
-            </div>
-            <div>
-              <h1 className="text-3xl md:text-4xl font-black tracking-tight">
-                কেস স্টাডি
-              </h1>
-              <p className="text-purple-100/80 text-sm mt-1">
-                বাস্তব উদাহরণ সহ ধাপে ধাপে সমাধান
-              </p>
-            </div>
-          </div>
 
-          <div className="grid md:grid-cols-3 gap-4 mt-6">
-            <div className="bg-white/10 backdrop-blur-sm p-4 rounded-xl">
-              <div className="text-3xl font-black text-purple-200">{cases.length}</div>
-              <div className="text-sm text-purple-100">মোট কেস স্টাডি</div>
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm p-4 rounded-xl">
-              <div className="text-3xl font-black text-green-200">✓</div>
-              <div className="text-sm text-purple-100">বিস্তারিত সমাধান</div>
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm p-4 rounded-xl">
-              <div className="text-3xl font-black text-amber-200">💡</div>
-              <div className="text-sm text-purple-100">শিক্ষণীয় বিষয়</div>
-            </div>
-          </div>
+        {/* Breadcrumb */}
+        <div className="flex items-center gap-2 text-[#1a4731]/60 text-sm mb-6">
+          <span>হোম</span>
+          <span>/</span>
+          <span className="text-[#1a4731] font-medium">কেস স্টাডি</span>
         </div>
 
-        {/* Case Selector */}
-        <div className="grid md:grid-cols-5 gap-4 mb-8">
-          {cases.map((caseItem, index) => (
-            <button
-              key={caseItem.id}
-              onClick={() => setSelectedCase(index)}
-              className={`p-4 rounded-xl border-2 transition-all text-left ${
-                selectedCase === index
-                  ? 'border-purple-500 bg-purple-50 shadow-lg'
-                  : 'border-gray-200 bg-white hover:border-gray-300'
-              }`}
-            >
-              <div className="text-2xl font-black text-purple-600 mb-2">
-                {caseItem.id}
-              </div>
-              <p className="text-xs text-gray-700 font-medium line-clamp-2">
-                {caseItem.title}
-              </p>
-              <div className="mt-2">
-                {getDifficultyBadge(caseItem.difficulty, caseItem.difficultyColor)}
-              </div>
-            </button>
-          ))}
+        {/* Page Header */}
+        <div className="mb-8">
+          <div className="flex items-center gap-3 mb-2">
+            <FaBook className="text-[#c9a84c]" size={22} />
+            <h1 className="text-2xl font-bold text-[#1a4731]">কেস স্টাডি</h1>
+          </div>
+          <p className="text-gray-600 text-sm">বাস্তব উদাহরণ সহ ধাপে ধাপে সমাধান — {cases.length}টি কেস</p>
         </div>
 
-        {/* Selected Case Content */}
-        <div className="bg-white rounded-[2rem] shadow-sm border border-gray-100 p-8">
-          {/* Title */}
-          <div className="mb-6">
-            <div className="flex items-center gap-3 mb-2">
-              <span className="w-10 h-10 bg-purple-600 text-white rounded-xl flex items-center justify-center font-black">
-                {currentCase.id}
-              </span>
-              <h2 className="text-2xl font-bold text-gray-800">{currentCase.title}</h2>
+        <div className="flex flex-col md:flex-row gap-6">
+          {/* Left Sidebar - Case Selector */}
+          <div className="md:w-64 flex-shrink-0">
+            <div className="bg-white border border-[#e2ddd5] rounded-xl shadow-sm overflow-hidden">
+              <div className="px-4 py-3 border-b border-[#e2ddd5]">
+                <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">কেস নির্বাচন</p>
+              </div>
+              {cases.map((caseItem, index) => (
+                <button
+                  key={caseItem.id}
+                  onClick={() => setSelectedCase(index)}
+                  className={`w-full px-4 py-3 text-left border-b border-[#e2ddd5] last:border-0 transition-colors ${
+                    selectedCase === index
+                      ? 'bg-[#e8f0eb]'
+                      : 'hover:bg-[#f7f5f0]'
+                  }`}
+                >
+                  <div className="flex items-start gap-2">
+                    <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5 ${
+                      selectedCase === index ? 'bg-[#1a4731] text-white' : 'bg-gray-100 text-gray-600'
+                    }`}>
+                      {caseItem.id}
+                    </span>
+                    <div className="flex-1 min-w-0">
+                      <p className={`text-xs font-medium leading-snug ${selectedCase === index ? 'text-[#1a4731]' : 'text-gray-700'}`}>
+                        {caseItem.title}
+                      </p>
+                      <span className={`inline-block mt-1 px-2 py-0.5 rounded text-xs font-medium ${difficultyStyle(caseItem.difficultyColor)}`}>
+                        {caseItem.difficulty}
+                      </span>
+                    </div>
+                  </div>
+                </button>
+              ))}
             </div>
-            {getDifficultyBadge(currentCase.difficulty, currentCase.difficultyColor)}
           </div>
 
-          {/* Scenario */}
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl mb-6 border-l-4 border-blue-500">
-            <h3 className="text-lg font-bold text-blue-900 mb-4 flex items-center gap-2">
-              <FaUsers /> পরিস্থিতি
-            </h3>
-            <div className="space-y-2">
-              <p className="text-gray-800"><strong>মৃত ব্যক্তি:</strong> {currentCase.scenario.deceased}</p>
-              <p className="text-gray-800"><strong>মোট সম্পদ:</strong> {currentCase.scenario.assets}</p>
-              <div>
-                <p className="text-gray-800 font-bold mb-2">ওয়ারিশ:</p>
-                <ul className="list-disc list-inside space-y-1 text-gray-700">
-                  {currentCase.scenario.heirs.map((heir, i) => (
-                    <li key={i}>{heir}</li>
-                  ))}
-                </ul>
+          {/* Right - Case Detail */}
+          <div className="flex-1 min-w-0 space-y-4">
+            {/* Case Title */}
+            <div className="bg-white border border-[#e2ddd5] rounded-xl p-5 shadow-sm">
+              <div className="flex items-start gap-3">
+                <div className="w-9 h-9 bg-[#1a4731] text-white rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0">
+                  {currentCase.id}
+                </div>
+                <div>
+                  <h2 className="font-bold text-[#1a4731]">{currentCase.title}</h2>
+                  <span className={`inline-block mt-1 px-2.5 py-0.5 rounded-lg text-xs font-medium ${difficultyStyle(currentCase.difficultyColor)}`}>
+                    {currentCase.difficulty}
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Solution Steps */}
-          <div className="mb-6">
-            <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-              <FaCalculator /> সমাধান প্রক্রিয়া
-            </h3>
-            
-            {Object.keys(currentCase.solution).filter(key => key.startsWith('step')).map((key, index) => {
-              const step = currentCase.solution[key];
-              return (
-                <div key={key} className="mb-4">
-                  <div className="bg-gray-50 p-5 rounded-xl border-l-4 border-purple-500">
-                    <div className="flex items-start gap-3 mb-3">
-                      <div className="w-8 h-8 bg-purple-600 text-white rounded-lg flex items-center justify-center font-bold flex-shrink-0">
-                        {index + 1}
+            {/* Scenario */}
+            <div className="bg-white border border-[#e2ddd5] rounded-xl p-5 shadow-sm">
+              <h3 className="font-bold text-[#1a4731] text-sm mb-3 flex items-center gap-2">
+                <FaUsers size={13} /> পরিস্থিতি
+              </h3>
+              <div className="space-y-2 text-sm">
+                <p className="text-gray-700"><span className="font-medium">মৃত ব্যক্তি:</span> {currentCase.scenario.deceased}</p>
+                <p className="text-gray-700"><span className="font-medium">মোট সম্পদ:</span> {currentCase.scenario.assets}</p>
+                <div>
+                  <p className="font-medium text-gray-700 mb-1.5">ওয়ারিশ:</p>
+                  <ul className="space-y-1">
+                    {currentCase.scenario.heirs.map((heir, i) => (
+                      <li key={i} className="flex items-center gap-2 text-gray-600">
+                        <span className="w-1.5 h-1.5 bg-[#1a4731] rounded-full flex-shrink-0"></span>
+                        {heir}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Solution Steps */}
+            <div className="bg-white border border-[#e2ddd5] rounded-xl p-5 shadow-sm">
+              <h3 className="font-bold text-[#1a4731] text-sm mb-4 flex items-center gap-2">
+                <FaCalculator size={13} /> সমাধান প্রক্রিয়া
+              </h3>
+
+              <div className="space-y-3">
+                {Object.keys(currentCase.solution).filter(key => key.startsWith('step')).map((key, index) => {
+                  const step = currentCase.solution[key];
+                  return (
+                    <div key={key} className="flex gap-3">
+                      <div className="flex flex-col items-center">
+                        <div className="w-7 h-7 bg-[#1a4731] text-white rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">
+                          {index + 1}
+                        </div>
+                        {index < Object.keys(currentCase.solution).filter(k => k.startsWith('step')).length - 1 && (
+                          <div className="w-px flex-1 bg-[#e2ddd5] my-1"></div>
+                        )}
                       </div>
-                      <div className="flex-1">
-                        <h4 className="font-bold text-gray-800 mb-2">{step.title}</h4>
-                        <p className="text-gray-700 text-sm mb-3">{step.content}</p>
-                        <div className="bg-white p-4 rounded-lg font-mono text-sm">
+                      <div className="flex-1 pb-3">
+                        <h4 className="font-medium text-[#1a4731] text-sm mb-1">{step.title}</h4>
+                        <p className="text-gray-600 text-sm mb-2">{step.content}</p>
+                        <div className="bg-[#f7f5f0] p-3 rounded-lg font-mono text-sm">
                           {Array.isArray(step.calculation) ? (
                             step.calculation.map((calc, i) => (
-                              <div key={i} className="text-gray-800 mb-1">{calc}</div>
+                              <div key={i} className="text-gray-700 mb-0.5">{calc}</div>
                             ))
                           ) : (
-                            <div className="text-gray-800">{step.calculation}</div>
+                            <div className="text-gray-700">{step.calculation}</div>
                           )}
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+                  );
+                })}
+              </div>
+            </div>
 
-          {/* Final Distribution */}
-          <div className="mb-6">
-            <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-              <FaCheckCircle className="text-green-600" /> চূড়ান্ত বন্টন
-            </h3>
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="bg-gray-50">
-                    <th className="px-4 py-3 text-left text-sm font-bold text-gray-700">ওয়ারিশ</th>
-                    <th className="px-4 py-3 text-left text-sm font-bold text-gray-700">অংশ</th>
-                    <th className="px-4 py-3 text-left text-sm font-bold text-gray-700">টাকা</th>
-                    <th className="px-4 py-3 text-left text-sm font-bold text-gray-700">শতাংশ</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {currentCase.solution.finalDistribution.map((item, i) => (
-                    <tr key={i} className="border-t border-gray-100">
-                      <td className="px-4 py-3 font-bold text-gray-800">{item.name}</td>
-                      <td className="px-4 py-3 text-gray-600">{item.share}</td>
-                      <td className="px-4 py-3 font-mono font-bold text-green-700">{item.amount} ৳</td>
-                      <td className="px-4 py-3 text-purple-600 font-semibold">{item.percentage}</td>
+            {/* Final Distribution */}
+            <div className="bg-white border border-[#e2ddd5] rounded-xl p-5 shadow-sm">
+              <h3 className="font-bold text-[#1a4731] text-sm mb-3 flex items-center gap-2">
+                <FaCheckCircle className="text-[#1a4731]" size={13} /> চূড়ান্ত বন্টন
+              </h3>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-[#e2ddd5]">
+                      <th className="px-3 py-2 text-left text-gray-500 font-medium">ওয়ারিশ</th>
+                      <th className="px-3 py-2 text-left text-gray-500 font-medium">অংশ</th>
+                      <th className="px-3 py-2 text-left text-gray-500 font-medium">টাকা</th>
+                      <th className="px-3 py-2 text-left text-gray-500 font-medium">%</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {currentCase.solution.finalDistribution.map((item, i) => (
+                      <tr key={i} className="border-b border-[#e2ddd5] last:border-0">
+                        <td className="px-3 py-2 font-medium text-[#1a4731]">{item.name}</td>
+                        <td className="px-3 py-2 text-gray-600">{item.share}</td>
+                        <td className="px-3 py-2 font-mono font-bold text-[#1a4731]">{item.amount} ৳</td>
+                        <td className="px-3 py-2 text-gray-500">{item.percentage}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div className="mt-3 bg-[#f7f5f0] p-3 rounded-lg">
+                <p className="text-[#1a4731] font-mono text-xs">
+                  <strong>যাচাই:</strong> {currentCase.solution.verification}
+                </p>
+              </div>
             </div>
-            <div className="mt-4 bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
-              <p className="text-green-800 font-mono text-sm">
-                <strong>যাচাই:</strong> {currentCase.solution.verification}
-              </p>
-            </div>
-          </div>
 
-          {/* Lessons Learned */}
-          <div className="bg-gradient-to-r from-amber-50 to-orange-50 p-6 rounded-xl border-l-4 border-amber-500">
-            <h3 className="text-lg font-bold text-amber-900 mb-4 flex items-center gap-2">
-              <FaLightbulb /> শিক্ষণীয় বিষয়
-            </h3>
-            <ul className="space-y-2">
-              {currentCase.solution.lessons.map((lesson, i) => (
-                <li key={i} className="flex items-start gap-2 text-amber-800">
-                  <span className="text-amber-600 font-bold">✓</span>
-                  <span>{lesson}</span>
-                </li>
-              ))}
-            </ul>
+            {/* Lessons */}
+            <div className="bg-white border border-[#e2ddd5] rounded-xl p-5 shadow-sm">
+              <h3 className="font-bold text-[#1a4731] text-sm mb-3 flex items-center gap-2">
+                <FaLightbulb className="text-[#c9a84c]" size={13} /> শিক্ষণীয় বিষয়
+              </h3>
+              <ul className="space-y-2">
+                {currentCase.solution.lessons.map((lesson, i) => (
+                  <li key={i} className="flex items-start gap-2 text-gray-600 text-sm">
+                    <FaCheckCircle className="text-[#1a4731] flex-shrink-0 mt-0.5" size={11} />
+                    <span>{lesson}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
           </div>
         </div>
+
       </div>
     </div>
   );

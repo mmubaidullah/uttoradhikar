@@ -1,142 +1,70 @@
 @import "tailwindcss";
 
-/* ফন্ট অপটিমাইজেশন */
-.arabic-text {
-  font-family: 'Amiri', serif;
-  direction: rtl;
-  font-size: 1.5rem;
-  line-height: 1.8;
-  font-display: swap;
-}
-
+/* ===== FONTS ===== */
 :root {
-  font-family: 'Hind Siliguri', sans-serif;
-  font-display: swap;
+  font-family: 'Hind Siliguri', 'Noto Sans Bengali', system-ui, sans-serif;
+  --color-primary: #1a4731;
+  --color-primary-light: #2d6a4f;
+  --color-accent: #c9a84c;
+  --color-surface: #f7f5f0;
+  --color-border: #e2ddd5;
 }
 
 body {
-  @apply bg-[#F8FAFC] text-gray-800 antialiased;
-  font-feature-settings: "lnum"; /* সংখ্যাগুলো যেন সমান লাইনে থাকে */
+  background-color: #f7f5f0;
+  color: #1c1c1c;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* স্ক্রলবার সুন্দর করা */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-::-webkit-scrollbar-thumb {
-  background: #059669; /* emerald-600 */
-  border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #047857; /* emerald-700 */
+html {
+  scroll-behavior: smooth;
 }
 
-/* প্রিন্ট করার সময় অপ্রয়োজনীয় অংশ হাইড করা */
+/* ===== ARABIC TEXT ===== */
+.arabic-text {
+  font-family: 'Amiri', 'Traditional Arabic', serif;
+  direction: rtl;
+  font-size: 1.4rem;
+  line-height: 2.2rem;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f0ece4; }
+::-webkit-scrollbar-thumb { background: #1a4731; border-radius: 3px; }
+
+/* ===== SELECTION ===== */
+::selection {
+  background: #d4edda;
+  color: #1a4731;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in { animation: fadeUp 0.25s ease-out; }
+
+/* ===== PRINT ===== */
 @media print {
-  .no-print {
-    display: none !important;
-  }
-  
-  body {
-    background: white;
-  }
-  
-  /* প্রিন্টে রঙ বজায় রাখা */
-  * {
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
+  .no-print { display: none !important; }
+  body { background: white; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
 
-@layer base {
-  body {
-    margin: 0;
-    padding: 0;
-    background-color: #f8fafc; /* ডিফল্ট ব্যাকগ্রাউন্ড */
-  }
+/* ===== NUMBER INPUT ===== */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
+input[type="number"] { -moz-appearance: textfield; }
 
-/* মেশ ব্যাকগ্রাউন্ড */
-.mesh-background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  background-color: #f8fafc;
-  background-image: 
-    radial-gradient(at 0% 0%, hsla(161, 68%, 90%, 1) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, hsla(180, 50%, 92%, 1) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, hsla(161, 68%, 90%, 1) 0px, transparent 50%),
-    radial-gradient(at 0% 100%, hsla(180, 50%, 94%, 1) 0px, transparent 50%);
-  filter: blur(40px);
-  will-change: transform;
-}
-
-/* অ্যানিমেশন */
-@keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-in {
-  animation: fade-in 0.3s ease-out;
-}
-
-/* ফোকাস স্টাইল */
+/* ===== FOCUS ===== */
 *:focus-visible {
-  outline: 2px solid #059669;
+  outline: 2px solid #1a4731;
   outline-offset: 2px;
   border-radius: 4px;
-}
-
-/* সিলেকশন কালার */
-::selection {
-  background-color: #d1fae5; /* emerald-100 */
-  color: #064e3b; /* emerald-900 */
-}
-
-/* Loading skeleton (ভবিষ্যতে ব্যবহারের জন্য) */
-@keyframes shimmer {
-  0% {
-    background-position: -1000px 0;
-  }
-  100% {
-    background-position: 1000px 0;
-  }
-}
-
-.skeleton {
-  animation: shimmer 2s infinite;
-  background: linear-gradient(
-    to right,
-    #f0f0f0 0%,
-    #e0e0e0 20%,
-    #f0f0f0 40%,
-    #f0f0f0 100%
-  );
-  background-size: 1000px 100%;
-}
-
-/* Accessibility improvements */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
 }

@@ -11,17 +11,15 @@ import HadithCollection from "./components/HadithCollection";
 import SpecialCases from "./components/SpecialCases";
 import FAQ from "./components/FAQ";
 import CaseStudies from "./components/CaseStudies";
+import AwlRadd from "./components/AwlRadd";
+import BangladeshLaw from "./components/BangladeshLaw";
 
 function App() {
   return (
     <Router>
-      <div className="min-h-screen font-bengali flex flex-col relative">
-        {/* এই ডিভটি পুরো ব্যাকগ্রাউন্ড হ্যান্ডেল করবে */}
-        <div className="mesh-background"></div>
-
+      <div className="min-h-screen flex flex-col bg-[#f7f5f0]">
         <Navbar />
-
-        <main className="flex-grow relative z-10">
+        <main className="flex-grow">
           <Routes>
             <Route path="/" element={<InheritanceCalculator />} />
             <Route path="/guide" element={<Guide />} />
@@ -29,13 +27,14 @@ function App() {
             <Route path="/hadith" element={<HadithCollection />} />
             <Route path="/special-cases" element={<SpecialCases />} />
             <Route path="/case-studies" element={<CaseStudies />} />
+            <Route path="/awl-radd" element={<AwlRadd />} />
+            <Route path="/bangladesh-law" element={<BangladeshLaw />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/about" element={<About />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="*" element={<InheritanceCalculator />} />
           </Routes>
         </main>
-
         <Footer />
       </div>
     </Router>

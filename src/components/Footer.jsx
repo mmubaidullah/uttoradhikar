@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import SiteLogo from './SiteLogo';
+import { FaBalanceScale } from 'react-icons/fa';
 
 export const Footer = () => {
   const year = new Date().getFullYear();
@@ -14,11 +14,13 @@ export const Footer = () => {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2.5 mb-4">
-              <SiteLogo size={34} variant="light" />
+              <div className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                <FaBalanceScale className="text-[#c9a84c]" size={16} />
+              </div>
               <span className="font-bold text-lg text-white">উত্তরাধিকার</span>
             </div>
             <p className="text-white/60 text-sm leading-relaxed max-w-xs">
-              ইসলামী শরীয়াহ ও হানাফি মাযহাব অনুযায়ী সম্পদ বন্টনের নির্ভরযোগ্য ডিজিটাল হিসাবক।
+              ইসলামী শরীয়াহ ও হানাফি মাযহাব অনুযায়ী সম্পদ বন্টনের নির্ভরযোগ্য ডিজিটাল ক্যালকুলেটর।
             </p>
             <div className="mt-4 text-xs text-[#c9a84c] italic">
               "ফারায়েজ শিক্ষা করো — এটি জ্ঞানের অর্ধেক"

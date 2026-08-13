@@ -13,8 +13,8 @@ const Terms = () => {
           আমরা যথাসাধ্য দ্রুত সাড়া দেওয়ার চেষ্টা করি।
           <br /><br />
           ইমেল:{" "}
-          <a href="mailto:info@uttoradhikar.com" className="text-[#1a4731] font-medium hover:underline">
-            info@uttoradhikar.com
+          <a href="mailto:office.inshirahbd@gmail.com" className="text-[#1a4731] font-medium hover:underline">
+            office.inshirahbd@gmail.com
           </a>
         </p>
       ),
@@ -118,8 +118,8 @@ const Terms = () => {
         {/* Bottom note */}
         <p className="text-center text-xs text-gray-400 mt-8">
           এই নীতিমালা সম্পর্কে কোনো প্রশ্ন থাকলে{" "}
-          <a href="mailto:info@uttoradhikar.com" className="text-[#1a4731] hover:underline">
-            info@uttoradhikar.com
+          <a href="mailto:office.inshirahbd@gmail.com" className="text-[#1a4731] hover:underline">
+            office.inshirahbd@gmail.com
           </a>{" "}
           এ যোগাযোগ করুন।
         </p>

@@ -38,7 +38,7 @@ const About = () => {
             </div>
             <h2 className="font-bold text-gray-900 mb-3">আমাদের লক্ষ্য</h2>
             <p className="text-sm text-gray-600 leading-relaxed">
-              পারিবারিক সম্পদ বন্টনে জটিলতার কারণে অনেক সময় ভুল হয়। আমাদের এই হিসাবক
+              পারিবারিক সম্পদ বন্টনে জটিলতার কারণে অনেক সময় ভুল হয়। আমাদের এই ক্যালকুলেটর
               সেই জটিলতা দূর করে পারিবারিক বিরোধ কমাতে সহায়তা করে।
               শরীয়াহ সম্মত বন্টন সবার জন্য সহজ করাই আমাদের উদ্দেশ্য।
             </p>
@@ -85,7 +85,7 @@ const About = () => {
             <p className="text-white/60 text-sm">এই প্ল্যাটফর্ম উন্নত করতে আপনার মতামত জানান।</p>
           </div>
           <a
-            href="mailto:info@uttoradhikar.com"
+            href="mailto:office.inshirahbd@gmail.com"
             className="flex items-center gap-2 bg-[#c9a84c] hover:bg-[#b8963e] text-white px-6 py-2.5 rounded-lg text-sm font-semibold transition-colors flex-shrink-0"
           >
             <FaEnvelope size={13} />

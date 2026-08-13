@@ -50,8 +50,93 @@ html {
 /* ===== PRINT ===== */
 @media print {
   .no-print { display: none !important; }
-  body { background: white; }
-  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  
+  nav, footer { display: none !important; }
+  
+  body { 
+    background: white !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  * { 
+    -webkit-print-color-adjust: exact !important; 
+    print-color-adjust: exact !important; 
+  }
+  
+  /* Hide all input sections, breadcrumbs, notices */
+  .print\:hidden { display: none !important; }
+  
+  /* Remove shadows and borders for cleaner print */
+  .shadow-sm, .shadow-md, .shadow-lg { 
+    box-shadow: none !important; 
+  }
+  
+  /* Prevent page breaks inside important elements */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+  }
+  
+  /* Ensure tables fit on page */
+  table { 
+    page-break-inside: avoid !important;
+    width: 100% !important;
+    border-collapse: collapse !important;
+  }
+  
+  /* Avoid breaking table rows and cells */
+  tr, td, th { 
+    page-break-inside: avoid !important;
+    page-break-after: auto !important;
+  }
+  
+  /* Keep table headers with content */
+  thead {
+    display: table-header-group !important;
+  }
+  
+  /* Prevent breaking of bordered containers */
+  .border, .rounded-xl, [class*="border-"] {
+    page-break-inside: avoid !important;
+  }
+  
+  /* Print page margins */
+  @page {
+    margin: 1.5cm;
+    size: A4;
+  }
+  
+  /* Remove sticky positioning */
+  .sticky { position: static !important; }
+  
+  /* Compact spacing for print */
+  .print\:mt-0 { margin-top: 0 !important; }
+  .print\:mt-4 { margin-top: 1rem !important; }
+  .print\:mb-2 { margin-bottom: 0.5rem !important; }
+  .print\:py-2 { padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; }
+  .print\:py-3 { padding-top: 0.75rem !important; padding-bottom: 0.75rem !important; }
+  .print\:text-sm { font-size: 0.875rem !important; }
+  .print\:text-lg { font-size: 1.125rem !important; }
+  .print\:text-2xl { font-size: 1.5rem !important; }
+  .print\:text-center { text-align: center !important; }
+  .print\:border-2 { border-width: 2px !important; }
+  .print\:block { display: block !important; }
+  
+  /* Ensure colors print correctly */
+  .bg-\[\#1a4731\], [style*="background-color: rgb(26, 71, 49)"] {
+    background-color: #1a4731 !important;
+  }
+  
+  .text-white {
+    color: white !important;
+  }
+  
+  /* Avoid orphans and widows */
+  p {
+    orphans: 3;
+    widows: 3;
+  }
 }
 
 /* ===== NUMBER INPUT ===== */

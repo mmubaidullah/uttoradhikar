@@ -184,16 +184,11 @@ const InheritanceCalculator = () => {
   const hasVal = (k) => assets[k] && parseFloat(assets[k]) > 0;
 
   return (
-    <div className="min-h-screen bg-[#f7f5f0] py-8 px-4 print:py-2">
-      <div className="max-w-5xl mx-auto">
+    <div className="min-h-screen bg-[#f7f5f0] py-8 print:py-2">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Page Header */}
         <div className="mb-8 print:mb-2">
-          <div className="flex items-center gap-2 text-[#1a4731]/60 text-sm mb-2 print:hidden">
-            <span>হোম</span>
-            <span>/</span>
-            <span className="text-[#1a4731] font-medium">ক্যালকুলেটর</span>
-          </div>
           <h1 className="text-3xl font-bold text-[#1a4731] print:text-2xl print:text-center">উত্তরাধিকার ক্যালকুলেটর</h1>
           <p className="text-gray-600 mt-1.5 print:text-sm print:text-center">হানাফি মাযহাবের ফারায়েজ বিধান অনুযায়ী সম্পদ বন্টন</p>
         </div>

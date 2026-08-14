@@ -15,7 +15,7 @@ const Navbar = () => {
     { to: "/quran",          label: "কুরআনের আয়াত" },
     { to: "/hadith",         label: "হাদিস সংকলন" },
     { to: "/awl-radd",       label: "আউল ও রাদ্দ" },
-    { to: "/munasakha",      label: "মুনাসাখা" },
+    // { to: "/munasakha",      label: "মুনাসাখা" }, // Coming soon
     { to: "/case-studies",   label: "কেস স্টাডি" },
     { to: "/special-cases",  label: "বিশেষ মাসআলা" },
     { to: "/bangladesh-law", label: "বাংলাদেশী আইন" },

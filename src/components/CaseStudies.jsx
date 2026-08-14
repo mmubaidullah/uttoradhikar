@@ -283,15 +283,8 @@ const CaseStudies = () => {
   const currentCase = cases[selectedCase];
 
   return (
-    <div className="min-h-screen bg-[#f7f5f0] py-8 px-4">
-      <div className="max-w-6xl mx-auto">
-
-        {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-[#1a4731]/60 text-sm mb-6">
-          <span>হোম</span>
-          <span>/</span>
-          <span className="text-[#1a4731] font-medium">কেস স্টাডি</span>
-        </div>
+    <div className="min-h-screen bg-[#f7f5f0] py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Page Header */}
         <div className="mb-8">

@@ -63,15 +63,8 @@ const Terms = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#f7f5f0] py-8 px-4">
-      <div className="max-w-3xl mx-auto">
-
-        {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-[#1a4731]/60 text-sm mb-6">
-          <span>হোম</span>
-          <span>/</span>
-          <span className="text-[#1a4731] font-medium">শর্তাবলী</span>
-        </div>
+    <div className="min-h-screen bg-[#f7f5f0] py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <h1 className="text-3xl font-bold text-[#1a4731] mb-2">আইনি তথ্যাবলি ও নীতিমালা</h1>
         <p className="text-gray-500 mb-8 text-sm">সর্বশেষ হালনাগাদ: জানুয়ারি ২০২৫</p>

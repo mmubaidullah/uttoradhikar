@@ -2,14 +2,8 @@ import { FaBullseye, FaShieldAlt, FaUsers, FaCode, FaEnvelope } from 'react-icon
 
 const About = () => {
   return (
-    <div className="min-h-screen bg-[#f7f5f0] py-8 px-4">
-      <div className="max-w-5xl mx-auto">
-
-        {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-[#1a4731]/60 text-sm mb-6">
-          <span>হোম</span><span>/</span>
-          <span className="text-[#1a4731] font-medium">পরিচিতি</span>
-        </div>
+    <div className="min-h-screen bg-[#f7f5f0] py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Hero Banner */}
         <div className="bg-[#1a4731] text-white rounded-2xl px-8 py-12 md:px-14 md:py-16 mb-8 relative overflow-hidden">

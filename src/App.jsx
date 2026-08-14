@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar"; 
 import InheritanceCalculator from "./logic/Logic";
@@ -13,7 +12,7 @@ import FAQ from "./components/FAQ";
 import CaseStudies from "./components/CaseStudies";
 import AwlRadd from "./components/AwlRadd";
 import BangladeshLaw from "./components/BangladeshLaw";
-import Munasakha from "./components/Munasakha";
+// import Munasakha from "./components/Munasakha"; // Coming soon
 
 function App() {
   return (
@@ -30,7 +29,7 @@ function App() {
             <Route path="/case-studies" element={<CaseStudies />} />
             <Route path="/awl-radd" element={<AwlRadd />} />
             <Route path="/bangladesh-law" element={<BangladeshLaw />} />
-            <Route path="/munasakha" element={<Munasakha />} />
+            {/* <Route path="/munasakha" element={<Munasakha />} /> */}
             <Route path="/faq" element={<FAQ />} />
             <Route path="/about" element={<About />} />
             <Route path="/terms" element={<Terms />} />
